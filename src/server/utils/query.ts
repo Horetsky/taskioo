@@ -25,6 +25,18 @@ function insertQuery<Schema extends ZodType>({ data }: MutateOptions<Schema>, ta
     return `INSERT INTO "${table}" (${fields}) VALUES (${values})`;
 }
 
+export function updateQuery<Schema extends ZodType>({ data, where, returns }: MutateOptions<Schema>, table: string, query: string) {
+    if(!data) return query;
+
+    const dataEntries =
+        Object.entries(data).filter(([_, value]) => value);
+    if(dataEntries.length === 0) return query;
+
+    const values = dataEntries.map(([key, value]) => `"${key}" = '${value}'`).join(", ");
+
+    return `UPDATE "${table}" SET ${values}`;
+}
+
 function includeQuery<Schema extends ZodType>({ include }: QueryOptions<Schema>, table: string, query: string) {
     if(!include) return query;
 

@@ -1,24 +1,29 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { type ZodSchema, type ZodType } from "zod";
-import { type QueryOptions, type MutateOptions } from "@/server/types";
-
+import { type Options } from "@/server/types";
+import {
+    includeQuery,
+    insertQuery,
+    limitQuery,
+    orderQuery,
+    selectQuery,
+    updateQuery,
+    whereQuery
+} from "@/server/utils/query";
 import { createQueryStack } from "@/server/utils/queryStack";
-import { includeQuery, insertQuery, limitQuery, orderQuery, selectQuery, whereQuery } from "@/server/utils/query";
 import { postgres } from "@/lib/pool";
 
 type ProcedureReturn<T> = {
     query: string;
     returns: (schema?: ZodSchema<T>) => Promise<T> | unknown;
 }
-type Query<T extends ZodType, V> = (table: string, options: QueryOptions<T>) => ProcedureReturn<V>;
-type Mutation<T extends ZodType, V> = (table: string, options: MutateOptions<T>) => ProcedureReturn<V>;
+type Query<T extends ZodType, V> = (table: string, options: Options<T>) => ProcedureReturn<V>;
 
 type ProcedureMethods<Input extends ZodType, Output> = {
     select: Query<Input, Output>;
-    insert: Mutation<Input, Output>;
+    insert: Query<Input, Output>;
 }
-
 
 function withReturn(query: string) {
     return async function<Output = any>(schema?: ZodSchema<Output>) {
@@ -31,14 +36,25 @@ function withReturn(query: string) {
 
 class Procedure<Input extends ZodType, Output> implements ProcedureMethods<Input, Output>{
 
-    select(table: string, options: QueryOptions<Input>) {
+    select(table: string, options: Options<Input>) {
         const queryStack = [selectQuery, includeQuery, whereQuery, orderQuery, limitQuery];
         const query = createQueryStack(queryStack, options, table, "");
 
+        console.log(query);
+
         return { returns: withReturn(query), query };
     }
-    insert(table: string, options: MutateOptions<Input>) {
+    insert(table: string, options: Options<Input>) {
         const queryStack = [insertQuery];
+        const query = createQueryStack(queryStack, options, table, "");
+
+        console.log(query);
+
+        return { returns: withReturn(query), query };
+    }
+
+    update(table: string, options: Options<Input>) {
+        const queryStack = [updateQuery, whereQuery];
         const query = createQueryStack(queryStack, options, table, "");
 
         return { returns: withReturn(query), query };

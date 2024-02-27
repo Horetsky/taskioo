@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { type Options } from "@/server/types";
+import { type ZodType } from "zod";
+
 
 type QueryFunc = (object: any, table: string, query: string) => string;
-function createQueryStack(
+function createQueryStack<T extends ZodType>(
     queries: QueryFunc[],
-    options: any,
+    options: Options<T>,
     table: string,
     query: string,
     index = 0

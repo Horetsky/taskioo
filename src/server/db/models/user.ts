@@ -18,4 +18,8 @@ export class User implements Methods<TUser> {
     async create(options: MutateOptions<TUser>) {
         return await procedure.insert("user", options).returns();
     }
+
+    async update(options: MutateOptions<TUser>) {
+        return  await procedure.update("user", options).returns();
+    }
 }
