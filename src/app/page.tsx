@@ -1,14 +1,10 @@
-import api from "@/server/api";
+import db from "@/server/db";
 
 const Page = async () => {
-    await api.user.findMany({
-        select: {
-            id: true
-        }
-    });
+    const t = await db.user.findMany({});
     return (
         <div>
-            home
+            { JSON.stringify(t) }
         </div>
     );
 };

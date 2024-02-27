@@ -1,12 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { type ZodType } from "zod";
-import type { QueryResult, QueryResultRow } from "pg";
 
 type Order = "DESC" | "ASC";
 type Output<T extends ZodType> = T["_output"];
-
-export type MethodResult = Promise<QueryResult<QueryResultRow>>;
 
 export type QueryOptions<T extends ZodType> =
     Partial<{
@@ -31,7 +28,7 @@ export type MutateOptions<T extends ZodType> = {
 }
 
 export type Methods<T extends ZodType> = {
-    findUnique: (options: UniqueQueryOptions<T>) => any;
-    findMany: (options: QueryOptions<T>) => MethodResult;
-    create: (options: MutateOptions<T>) => MethodResult;
+    findUnique: (options: UniqueQueryOptions<T>) => unknown;
+    findMany: (options: QueryOptions<T>) => unknown;
+    create: (options: MutateOptions<T>) => any;
 }
