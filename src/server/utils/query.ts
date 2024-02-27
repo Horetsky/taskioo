@@ -1,8 +1,8 @@
 import type { ZodType } from "zod";
-import type { GetOptions } from "@/server/types";
+import type { QueryOptions, MutateOptions } from "@/server/types";
 
-function selectQuery<Schema extends ZodType>({ select }: GetOptions<Schema>, table: string, query: string) {
-    if(!select) return query;
+function selectQuery<Schema extends ZodType>({ select }: QueryOptions<Schema>, table: string, query: string) {
+    if(!select) return `SELECT * FROM "${table}"`;
 
     const entries =
         Object.entries(select).filter(([_, value]) => value);
@@ -12,7 +12,20 @@ function selectQuery<Schema extends ZodType>({ select }: GetOptions<Schema>, tab
     return `SELECT ${fields.join(", ")} FROM "${table}"`;
 }
 
-function includeQuery<Schema extends ZodType>({ include }: GetOptions<Schema>, table: string, query: string) {
+function insertQuery<Schema extends ZodType>({ data }: MutateOptions<Schema>, table: string, query: string) {
+    if(!data) return query;
+
+    const entries =
+        Object.entries(data).filter(([_, value]) => value);
+    if(entries.length === 0) return query;
+
+    const fields = entries.map(([key]) => key).join(", ");
+    const values = entries.map(([_, value]) => `'${value}'`).join(", ");
+
+    return `INSERT INTO "${table}" (${fields}) VALUES (${values})`;
+}
+
+function includeQuery<Schema extends ZodType>({ include }: QueryOptions<Schema>, table: string, query: string) {
     if(!include) return query;
 
     const entries =
@@ -24,7 +37,7 @@ function includeQuery<Schema extends ZodType>({ include }: GetOptions<Schema>, t
     }, query);
 }
 
-function whereQuery<Schema extends ZodType>({ where }: GetOptions<Schema>, table: string, query: string) {
+function whereQuery<Schema extends ZodType>({ where }: QueryOptions<Schema>, table: string, query: string) {
     if(!where) return query;
 
     const entries =
@@ -33,14 +46,14 @@ function whereQuery<Schema extends ZodType>({ where }: GetOptions<Schema>, table
 
     return entries.reduce((acc, [key, value], index) => {
         if(index % 2 === 0) {
-            return acc.concat(` WHERE "${table}".${key} = ${value}`);
+            return acc.concat(` WHERE "${table}".${key} = '${value}'`);
         } else {
-            return acc.concat(` AND "${table}".${key} = ${value}`);
+            return acc.concat(` AND "${table}".${key} = '${value}'`);
         }
     }, query);
 }
 
-function orderQuery<Schema extends ZodType>({ order }: GetOptions<Schema>, table: string, query: string) {
+function orderQuery<Schema extends ZodType>({ order }: QueryOptions<Schema>, table: string, query: string) {
     if(!order) return query;
 
     const entries =
@@ -52,13 +65,14 @@ function orderQuery<Schema extends ZodType>({ order }: GetOptions<Schema>, table
     }, query);
 }
 
-function limitQuery<Schema extends ZodType>({ limit }: GetOptions<Schema>, table: string, query: string) {
+function limitQuery<Schema extends ZodType>({ limit }: QueryOptions<Schema>, table: string, query: string) {
     if(!limit) return query;
     return query.concat(` LIMIT ${limit}`);
 }
 
 export {
     selectQuery,
+    insertQuery,
     includeQuery,
     whereQuery,
     orderQuery,

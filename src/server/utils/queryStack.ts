@@ -1,10 +1,9 @@
-import type { ZodType } from "zod";
-import type { GetOptions } from "@/server/types";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-type QueryFunc<Schema extends ZodType> = (object: GetOptions<Schema>, table: string, query: string) => string;
-function createQueryStack<Schema extends ZodType>(
-    queries: QueryFunc<Schema>[],
-    options: GetOptions<Schema>,
+type QueryFunc = (object: any, table: string, query: string) => string;
+function createQueryStack(
+    queries: QueryFunc[],
+    options: any,
     table: string,
     q: string,
     index = 0

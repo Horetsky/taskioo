@@ -1,29 +1,35 @@
 import { type ZodSchema, type ZodType } from "zod";
-import { type GetOptions } from "@/server/types";
-import { type QueryResult, type QueryResultRow } from "pg";
+import { type QueryOptions, type MethodResult, type MutateOptions } from "@/server/types";
 
 import { createQueryStack } from "@/server/utils/queryStack";
-import { includeQuery, limitQuery, orderQuery, selectQuery, whereQuery } from "@/server/utils/query";
+import { includeQuery, insertQuery, limitQuery, orderQuery, selectQuery, whereQuery } from "@/server/utils/query";
 
-type CallbackResult = Promise<QueryResult<QueryResultRow>>;
-type Callback = (text: string, params?: unknown[]) => CallbackResult;
+type Database = (text: string, params?: unknown[]) => MethodResult;
 
-const queryStack = [selectQuery, includeQuery, whereQuery, orderQuery, limitQuery];
+export function procedure<Input extends ZodType>(schema: ZodSchema<Input["_input"]>) {
 
-export function procedure<Schema extends ZodType>(schema: ZodSchema<Schema>["_input"]) {
-
-    function query<Schema extends ZodType>(options: GetOptions<Schema>, table: string): string;
-    function query<Schema extends ZodType>(options: GetOptions<Schema>, table: string, callback?: Callback): CallbackResult;
-    function query(options: GetOptions<typeof schema>, table: string, callback?: Callback) {
-
-        let query: string = `SELECT * FROM "${table}"`;
-
+    function select(table: string, options: QueryOptions<Input>): string;
+    function select(table: string, options: QueryOptions<Input>, database: Database): MethodResult;
+    function select(table: string, options: QueryOptions<Input>, database?: Database) {
+        let query: string = "";
+        const queryStack = [selectQuery, includeQuery, whereQuery, orderQuery, limitQuery];
         query = createQueryStack(queryStack, options, table, query);
 
-        if(callback) return callback(query);
+        if(database) return database(query);
         return query;
-
     }
 
-    return { query };
+    function create(table: string, options: MutateOptions<Input>): string;
+    function create(table: string, options: MutateOptions<Input>, database?: Database): MethodResult;
+    function create(table: string, options: MutateOptions<Input>, database?: Database) {
+
+        let query: string = "";
+        const queryStack = [insertQuery];
+        query = createQueryStack(queryStack, options, table, query);
+
+        if(database) return database(query);
+        return query;
+    }
+
+    return { select, create };
 }
