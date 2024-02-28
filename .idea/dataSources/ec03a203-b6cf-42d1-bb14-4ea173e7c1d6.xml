@@ -11,7 +11,7 @@
 5||-9223372036854775808|T|G
 5||10|T|G
 5||16595|T|G</Grants>
-      <IntrospectionStateNumber>1145</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1158</IntrospectionStateNumber>
       <ServerVersion>15.1</ServerVersion>
       <StartupTime>1708939230</StartupTime>
       <TimeZones>true ACDT
@@ -1493,89 +1493,89 @@ false posixrules
 16949||16732|C|G
 16949||16420|U|G
 16949||16732|U|G</Grants>
-      <IntrospectionStateNumber>1145</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1158</IntrospectionStateNumber>
       <ObjectId>5</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
-    <role id="3" parent="1" name="pg_database_owner">
-      <ObjectId>6171</ObjectId>
+    <role id="3" parent="1" name="anon">
+      <Config>statement_timeout=3s</Config>
+      <ObjectId>16478</ObjectId>
     </role>
-    <role id="4" parent="1" name="pg_read_all_data">
-      <ObjectId>6181</ObjectId>
+    <role id="4" parent="1" name="authenticated">
+      <Config>statement_timeout=8s</Config>
+      <ObjectId>16479</ObjectId>
     </role>
-    <role id="5" parent="1" name="pg_write_all_data">
-      <ObjectId>6182</ObjectId>
+    <role id="5" parent="1" name="authenticator">
+      <CanLogin>1</CanLogin>
+      <Config>session_preload_libraries=supautils, safeupdate
+statement_timeout=8s
+lock_timeout=8s</Config>
+      <Inherit>0</Inherit>
+      <ObjectId>16481</ObjectId>
+      <RoleGrants>16478
+16479
+16480</RoleGrants>
     </role>
-    <role id="6" parent="1" name="pg_monitor">
-      <ObjectId>3373</ObjectId>
-      <RoleGrants>3374
-3375
-3377</RoleGrants>
-    </role>
-    <role id="7" parent="1" name="pg_read_all_settings">
-      <ObjectId>3374</ObjectId>
-    </role>
-    <role id="8" parent="1" name="pg_read_all_stats">
-      <ObjectId>3375</ObjectId>
-    </role>
-    <role id="9" parent="1" name="pg_stat_scan_tables">
-      <ObjectId>3377</ObjectId>
-    </role>
-    <role id="10" parent="1" name="pg_read_server_files">
-      <ObjectId>4569</ObjectId>
-    </role>
-    <role id="11" parent="1" name="pg_write_server_files">
-      <ObjectId>4570</ObjectId>
-    </role>
-    <role id="12" parent="1" name="pg_execute_server_program">
-      <ObjectId>4571</ObjectId>
-    </role>
-    <role id="13" parent="1" name="pg_signal_backend">
-      <ObjectId>4200</ObjectId>
-    </role>
-    <role id="14" parent="1" name="pg_checkpoint">
-      <ObjectId>4544</ObjectId>
-    </role>
-    <role id="15" parent="1" name="dashboard_user">
+    <role id="6" parent="1" name="dashboard_user">
       <CreateDb>1</CreateDb>
       <CreateRole>1</CreateRole>
       <ObjectId>16595</ObjectId>
       <Replication>1</Replication>
     </role>
-    <role id="16" parent="1" name="pgsodium_keyiduser">
-      <ObjectId>16732</ObjectId>
+    <role id="7" parent="1" name="pg_checkpoint">
+      <ObjectId>4544</ObjectId>
     </role>
-    <role id="17" parent="1" name="pgsodium_keyholder">
+    <role id="8" parent="1" name="pg_database_owner">
+      <ObjectId>6171</ObjectId>
+    </role>
+    <role id="9" parent="1" name="pg_execute_server_program">
+      <ObjectId>4571</ObjectId>
+    </role>
+    <role id="10" parent="1" name="pg_monitor">
+      <ObjectId>3373</ObjectId>
+      <RoleGrants>3374
+3375
+3377</RoleGrants>
+    </role>
+    <role id="11" parent="1" name="pg_read_all_data">
+      <ObjectId>6181</ObjectId>
+    </role>
+    <role id="12" parent="1" name="pg_read_all_settings">
+      <ObjectId>3374</ObjectId>
+    </role>
+    <role id="13" parent="1" name="pg_read_all_stats">
+      <ObjectId>3375</ObjectId>
+    </role>
+    <role id="14" parent="1" name="pg_read_server_files">
+      <ObjectId>4569</ObjectId>
+    </role>
+    <role id="15" parent="1" name="pg_signal_backend">
+      <ObjectId>4200</ObjectId>
+    </role>
+    <role id="16" parent="1" name="pg_stat_scan_tables">
+      <ObjectId>3377</ObjectId>
+    </role>
+    <role id="17" parent="1" name="pg_write_all_data">
+      <ObjectId>6182</ObjectId>
+    </role>
+    <role id="18" parent="1" name="pg_write_server_files">
+      <ObjectId>4570</ObjectId>
+    </role>
+    <role id="19" parent="1" name="pgbouncer">
+      <CanLogin>1</CanLogin>
+      <ObjectId>16384</ObjectId>
+    </role>
+    <role id="20" parent="1" name="pgsodium_keyholder">
       <ObjectId>16733</ObjectId>
       <RoleGrants>16732</RoleGrants>
     </role>
-    <role id="18" parent="1" name="pgsodium_keymaker">
+    <role id="21" parent="1" name="pgsodium_keyiduser">
+      <ObjectId>16732</ObjectId>
+    </role>
+    <role id="22" parent="1" name="pgsodium_keymaker">
       <ObjectId>16734</ObjectId>
       <RoleGrants>16732
 16733</RoleGrants>
-    </role>
-    <role id="19" parent="1" name="authenticated">
-      <Config>statement_timeout=8s</Config>
-      <ObjectId>16479</ObjectId>
-    </role>
-    <role id="20" parent="1" name="anon">
-      <Config>statement_timeout=3s</Config>
-      <ObjectId>16478</ObjectId>
-    </role>
-    <role id="21" parent="1" name="service_role">
-      <BypassRls>1</BypassRls>
-      <ObjectId>16480</ObjectId>
-      <RoleGrants>16733</RoleGrants>
-    </role>
-    <role id="22" parent="1" name="supabase_admin">
-      <BypassRls>1</BypassRls>
-      <CanLogin>1</CanLogin>
-      <Config>search_path=&quot;$user&quot;, public, auth, extensions</Config>
-      <CreateDb>1</CreateDb>
-      <CreateRole>1</CreateRole>
-      <ObjectId>16420</ObjectId>
-      <Replication>1</Replication>
-      <SuperRole>1</SuperRole>
     </role>
     <role id="23" parent="1" name="postgres">
       <BypassRls>1</BypassRls>
@@ -1595,20 +1595,20 @@ false posixrules
 16734!
 3373</RoleGrants>
     </role>
-    <role id="24" parent="1" name="authenticator">
-      <CanLogin>1</CanLogin>
-      <Config>session_preload_libraries=supautils, safeupdate
-statement_timeout=8s
-lock_timeout=8s</Config>
-      <Inherit>0</Inherit>
-      <ObjectId>16481</ObjectId>
-      <RoleGrants>16478
-16479
-16480</RoleGrants>
+    <role id="24" parent="1" name="service_role">
+      <BypassRls>1</BypassRls>
+      <ObjectId>16480</ObjectId>
+      <RoleGrants>16733</RoleGrants>
     </role>
-    <role id="25" parent="1" name="pgbouncer">
+    <role id="25" parent="1" name="supabase_admin">
+      <BypassRls>1</BypassRls>
       <CanLogin>1</CanLogin>
-      <ObjectId>16384</ObjectId>
+      <Config>search_path=&quot;$user&quot;, public, auth, extensions</Config>
+      <CreateDb>1</CreateDb>
+      <CreateRole>1</CreateRole>
+      <ObjectId>16420</ObjectId>
+      <Replication>1</Replication>
+      <SuperRole>1</SuperRole>
     </role>
     <role id="26" parent="1" name="supabase_auth_admin">
       <CanLogin>1</CanLogin>
@@ -1618,24 +1618,24 @@ idle_in_transaction_session_timeout=60000</Config>
       <Inherit>0</Inherit>
       <ObjectId>16535</ObjectId>
     </role>
-    <role id="27" parent="1" name="supabase_storage_admin">
+    <role id="27" parent="1" name="supabase_read_only_user">
+      <BypassRls>1</BypassRls>
       <CanLogin>1</CanLogin>
-      <Config>search_path=storage</Config>
-      <CreateRole>1</CreateRole>
-      <Inherit>0</Inherit>
-      <ObjectId>16590</ObjectId>
-      <RoleGrants>16481</RoleGrants>
+      <ObjectId>16422</ObjectId>
+      <RoleGrants>6181</RoleGrants>
     </role>
     <role id="28" parent="1" name="supabase_replication_admin">
       <CanLogin>1</CanLogin>
       <ObjectId>16421</ObjectId>
       <Replication>1</Replication>
     </role>
-    <role id="29" parent="1" name="supabase_read_only_user">
-      <BypassRls>1</BypassRls>
+    <role id="29" parent="1" name="supabase_storage_admin">
       <CanLogin>1</CanLogin>
-      <ObjectId>16422</ObjectId>
-      <RoleGrants>6181</RoleGrants>
+      <Config>search_path=storage</Config>
+      <CreateRole>1</CreateRole>
+      <Inherit>0</Inherit>
+      <ObjectId>16590</ObjectId>
+      <RoleGrants>16481</RoleGrants>
     </role>
     <tablespace id="30" parent="1" name="pg_default">
       <ObjectId>1663</ObjectId>
@@ -5375,8 +5375,8 @@ idle_in_transaction_session_timeout=60000</Config>
 28729||16478|w|G
 28729||16479|w|G
 28729||16480|w|G</Grants>
-      <IntrospectionStateNumber>1145</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2024-02-26.14:54:29</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>1158</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2024-02-28.14:17:06</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>749</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
@@ -5491,8 +5491,9 @@ SECURITY LABEL</Tags>
     </column>
     <foreign-key id="307" parent="302" name="fk_area_user">
       <ColNames>user_id</ColNames>
-      <ObjectId>28733</ObjectId>
-      <StateNumber>1140</StateNumber>
+      <ObjectId>28746</ObjectId>
+      <OnDelete>cascade</OnDelete>
+      <StateNumber>1157</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>28723</RefTableId>
     </foreign-key>

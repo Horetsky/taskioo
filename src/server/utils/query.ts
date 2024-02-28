@@ -1,7 +1,6 @@
-import type { ZodType } from "zod";
-import type { QueryOptions, MutateOptions } from "@/server/types";
+import type { Options } from "@/server/types";
 
-function selectQuery<Schema extends ZodType>({ select }: QueryOptions<Schema>, table: string, query: string) {
+function selectQuery<Schema>({ select }: Options<Schema>, table: string, query: string) {
     if(!select) return `SELECT * FROM "${table}"`;
 
     const entries =
@@ -12,7 +11,7 @@ function selectQuery<Schema extends ZodType>({ select }: QueryOptions<Schema>, t
     return `SELECT ${fields.join(", ")} FROM "${table}"`;
 }
 
-function insertQuery<Schema extends ZodType>({ data }: MutateOptions<Schema>, table: string, query: string) {
+function insertQuery<Schema>({ data }: Options<Schema>, table: string, query: string) {
     if(!data) return query;
 
     const entries =
@@ -25,7 +24,7 @@ function insertQuery<Schema extends ZodType>({ data }: MutateOptions<Schema>, ta
     return `INSERT INTO "${table}" (${fields}) VALUES (${values})`;
 }
 
-export function updateQuery<Schema extends ZodType>({ data, where, returns }: MutateOptions<Schema>, table: string, query: string) {
+export function updateQuery<Schema>({ data }: Options<Schema>, table: string, query: string) {
     if(!data) return query;
 
     const dataEntries =
@@ -37,7 +36,11 @@ export function updateQuery<Schema extends ZodType>({ data, where, returns }: Mu
     return `UPDATE "${table}" SET ${values}`;
 }
 
-function includeQuery<Schema extends ZodType>({ include }: QueryOptions<Schema>, table: string, query: string) {
+export function deleteQuery<Schema>({}: Options<Schema>, table: string, query: string) {
+    return `DELETE FROM "${table}"`;
+}
+
+function includeQuery<Schema>({ include }: Options<Schema>, table: string, query: string) {
     if(!include) return query;
 
     const entries =
@@ -49,7 +52,7 @@ function includeQuery<Schema extends ZodType>({ include }: QueryOptions<Schema>,
     }, query);
 }
 
-function whereQuery<Schema extends ZodType>({ where }: QueryOptions<Schema>, table: string, query: string) {
+function whereQuery<Schema>({ where }: Options<Schema>, table: string, query: string) {
     if(!where) return query;
 
     const entries =
@@ -65,7 +68,7 @@ function whereQuery<Schema extends ZodType>({ where }: QueryOptions<Schema>, tab
     }, query);
 }
 
-function orderQuery<Schema extends ZodType>({ order }: QueryOptions<Schema>, table: string, query: string) {
+function orderQuery<Schema>({ order }: Options<Schema>, table: string, query: string) {
     if(!order) return query;
 
     const entries =
@@ -77,7 +80,7 @@ function orderQuery<Schema extends ZodType>({ order }: QueryOptions<Schema>, tab
     }, query);
 }
 
-function limitQuery<Schema extends ZodType>({ limit }: QueryOptions<Schema>, table: string, query: string) {
+function limitQuery<Schema>({ limit }: Options<Schema>, table: string, query: string) {
     if(!limit) return query;
     return query.concat(` LIMIT ${limit}`);
 }

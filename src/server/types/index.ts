@@ -1,42 +1,41 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { z, type ZodType } from "zod";
-
 type Order = "DESC" | "ASC";
-type Output<T extends ZodType> = T["_output"];
 
-export type Options<T extends ZodType> = Partial<{
-    where: Partial<Output<T>>;
+export type Options<T> = Partial<{
+    where: Partial<T>;
     returns: Partial<
-        Record<keyof T["_output"], boolean>
+        Record<keyof T, boolean>
     >;
-    data: Partial<T["_output"]>
+    data: Partial<T>
     select: Partial<
-        Record<keyof T["_output"], boolean>
+        Record<keyof T, boolean>
     >;
     include: Partial<{
         [key: string]: string;
     }>;
     order: Partial<
-        Record<keyof T["_output"], Order>
+        Record<keyof T, Order>
     >;
     limit: number;
 }>
 
-export type QueryOptions<T extends ZodType> = Omit<Options<T>, "data">;
-export type UniqueQueryOptions<T extends ZodType> = QueryOptions<T> & {
+export type SelectOptions<T> = Omit<Options<T>, "data">;
+export type SelectUniqueOptions<T> = SelectOptions<T> & {
     where: Options<T>["where"]
 };
+export type DeleteOptions<T> = Pick<Options<T>, "where">
 
-export type MutateOptions<T extends ZodType> = {
+export type MutateOptions<T> = {
     where?: Options<T>["where"];
     returns?: Options<T>["returns"];
     data: Options<T>["data"];
 }
 
-export type Methods<T extends ZodType> = {
-    findUnique: (options: UniqueQueryOptions<T>) => unknown;
-    findMany: (options: QueryOptions<T>) => unknown;
-    create: (options: MutateOptions<T>) => any;
-    update: (options: MutateOptions<T>) => any;
+export type Methods<T> = {
+    findUnique: (options: SelectUniqueOptions<T>) => unknown;
+    findMany: (options: SelectOptions<T>) => unknown;
+    create: (options: MutateOptions<T>) => unknown;
+    update: (options: MutateOptions<T>) => unknown;
+    delete: (options: DeleteOptions<T>) => unknown;
 }

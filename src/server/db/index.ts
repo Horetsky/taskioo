@@ -1,7 +1,8 @@
-import { User } from "@/server/db/models/user";
+import { UserModel } from "@/server/db/models/user";
+import User = UserModel.User;
 
 class Database {
-    user: User;
+    public user: User;
 
     constructor() {
         this.user = new User();

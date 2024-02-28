@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
-import { type ZodSchema, type ZodType } from "zod";
+import { type ZodSchema } from "zod";
 import { type Options } from "@/server/types";
 import {
+    deleteQuery,
     includeQuery,
     insertQuery,
     limitQuery,
@@ -12,53 +11,50 @@ import {
     whereQuery
 } from "@/server/utils/query";
 import { createQueryStack } from "@/server/utils/queryStack";
-import { postgres } from "@/lib/pool";
+import { withReturn } from "@/server/utils/withReturn";
 
 type ProcedureReturn<T> = {
     query: string;
     returns: (schema?: ZodSchema<T>) => Promise<T> | unknown;
 }
-type Query<T extends ZodType, V> = (table: string, options: Options<T>) => ProcedureReturn<V>;
+type Query<T, V> = (table: string, options: Options<T>) => ProcedureReturn<V>;
 
-type ProcedureMethods<Input extends ZodType, Output> = {
+type ProcedureMethods<Input, Output> = {
     select: Query<Input, Output>;
     insert: Query<Input, Output>;
+    update: Query<Input, Output>;
+    delete: Query<Input, Output>;
 }
 
-function withReturn(query: string) {
-    return async function<Output = any>(schema?: ZodSchema<Output>) {
-        const result = await postgres(query);
-
-        if(schema) return schema.parse(result.rows);
-        return result.rows;
-    };
-}
-
-class Procedure<Input extends ZodType, Output> implements ProcedureMethods<Input, Output>{
+class Procedure<Input, Output> implements ProcedureMethods<Input, Output>{
 
     select(table: string, options: Options<Input>) {
         const queryStack = [selectQuery, includeQuery, whereQuery, orderQuery, limitQuery];
-        const query = createQueryStack(queryStack, options, table, "");
-
-        console.log(query);
+        const query = createQueryStack(queryStack, options, table);
 
         return { returns: withReturn(query), query };
     }
     insert(table: string, options: Options<Input>) {
         const queryStack = [insertQuery];
-        const query = createQueryStack(queryStack, options, table, "");
-
-        console.log(query);
+        const query = createQueryStack(queryStack, options, table);
 
         return { returns: withReturn(query), query };
     }
 
     update(table: string, options: Options<Input>) {
         const queryStack = [updateQuery, whereQuery];
-        const query = createQueryStack(queryStack, options, table, "");
+        const query = createQueryStack(queryStack, options, table);
 
         return { returns: withReturn(query), query };
     }
+
+    delete(table: string, options: Options<Input>) {
+        const queryStack = [deleteQuery, whereQuery];
+        const query = createQueryStack(queryStack, options, table);
+
+        return { returns: withReturn(query), query };
+    }
+
 }
 
 const procedure = new Procedure();
