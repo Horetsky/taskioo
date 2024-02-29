@@ -1,10 +1,4 @@
-import db from "@/server/db";
-
-const Page = async () => {
-    await db.user.delete({
-
-    });
-
+const Page = () => {
     return (
         <div>
 

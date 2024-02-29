@@ -1,16 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { type ZodSchema } from "zod";
 
 type Order = "DESC" | "ASC";
 
 export type Options<T> = Partial<{
     where: Partial<T>;
-    returns: Partial<
-        Record<keyof T, boolean>
-    >;
+    returns: ZodSchema<Partial<T>>;
     data: Partial<T>
-    select: Partial<
-        Record<keyof T, boolean>
-    >;
+    select: {
+        [K in keyof T]?: boolean;
+    }
     include: Partial<{
         [key: string]: string;
     }>;
@@ -20,12 +18,11 @@ export type Options<T> = Partial<{
     limit: number;
 }>
 
-export type SelectOptions<T> = Omit<Options<T>, "data">;
+export type SelectOptions<T> = Omit<Options<T>, "data" | "returns">;
 export type SelectUniqueOptions<T> = SelectOptions<T> & {
     where: Options<T>["where"]
 };
 export type DeleteOptions<T> = Pick<Options<T>, "where">
-
 export type MutateOptions<T> = {
     where?: Options<T>["where"];
     returns?: Options<T>["returns"];

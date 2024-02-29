@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import type { Options } from "@/server/types";
 
 function selectQuery<Schema>({ select }: Options<Schema>, table: string, query: string) {

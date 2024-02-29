@@ -11,7 +11,7 @@
 5||-9223372036854775808|T|G
 5||10|T|G
 5||16595|T|G</Grants>
-      <IntrospectionStateNumber>1158</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1191</IntrospectionStateNumber>
       <ServerVersion>15.1</ServerVersion>
       <StartupTime>1708939230</StartupTime>
       <TimeZones>true ACDT
@@ -1493,89 +1493,89 @@ false posixrules
 16949||16732|C|G
 16949||16420|U|G
 16949||16732|U|G</Grants>
-      <IntrospectionStateNumber>1158</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1191</IntrospectionStateNumber>
       <ObjectId>5</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
-    <role id="3" parent="1" name="anon">
-      <Config>statement_timeout=3s</Config>
-      <ObjectId>16478</ObjectId>
-    </role>
-    <role id="4" parent="1" name="authenticated">
-      <Config>statement_timeout=8s</Config>
-      <ObjectId>16479</ObjectId>
-    </role>
-    <role id="5" parent="1" name="authenticator">
-      <CanLogin>1</CanLogin>
-      <Config>session_preload_libraries=supautils, safeupdate
-statement_timeout=8s
-lock_timeout=8s</Config>
-      <Inherit>0</Inherit>
-      <ObjectId>16481</ObjectId>
-      <RoleGrants>16478
-16479
-16480</RoleGrants>
-    </role>
-    <role id="6" parent="1" name="dashboard_user">
-      <CreateDb>1</CreateDb>
-      <CreateRole>1</CreateRole>
-      <ObjectId>16595</ObjectId>
-      <Replication>1</Replication>
-    </role>
-    <role id="7" parent="1" name="pg_checkpoint">
-      <ObjectId>4544</ObjectId>
-    </role>
-    <role id="8" parent="1" name="pg_database_owner">
+    <role id="3" parent="1" name="pg_database_owner">
       <ObjectId>6171</ObjectId>
     </role>
-    <role id="9" parent="1" name="pg_execute_server_program">
-      <ObjectId>4571</ObjectId>
+    <role id="4" parent="1" name="pg_read_all_data">
+      <ObjectId>6181</ObjectId>
     </role>
-    <role id="10" parent="1" name="pg_monitor">
+    <role id="5" parent="1" name="pg_write_all_data">
+      <ObjectId>6182</ObjectId>
+    </role>
+    <role id="6" parent="1" name="pg_monitor">
       <ObjectId>3373</ObjectId>
       <RoleGrants>3374
 3375
 3377</RoleGrants>
     </role>
-    <role id="11" parent="1" name="pg_read_all_data">
-      <ObjectId>6181</ObjectId>
-    </role>
-    <role id="12" parent="1" name="pg_read_all_settings">
+    <role id="7" parent="1" name="pg_read_all_settings">
       <ObjectId>3374</ObjectId>
     </role>
-    <role id="13" parent="1" name="pg_read_all_stats">
+    <role id="8" parent="1" name="pg_read_all_stats">
       <ObjectId>3375</ObjectId>
     </role>
-    <role id="14" parent="1" name="pg_read_server_files">
-      <ObjectId>4569</ObjectId>
-    </role>
-    <role id="15" parent="1" name="pg_signal_backend">
-      <ObjectId>4200</ObjectId>
-    </role>
-    <role id="16" parent="1" name="pg_stat_scan_tables">
+    <role id="9" parent="1" name="pg_stat_scan_tables">
       <ObjectId>3377</ObjectId>
     </role>
-    <role id="17" parent="1" name="pg_write_all_data">
-      <ObjectId>6182</ObjectId>
+    <role id="10" parent="1" name="pg_read_server_files">
+      <ObjectId>4569</ObjectId>
     </role>
-    <role id="18" parent="1" name="pg_write_server_files">
+    <role id="11" parent="1" name="pg_write_server_files">
       <ObjectId>4570</ObjectId>
     </role>
-    <role id="19" parent="1" name="pgbouncer">
-      <CanLogin>1</CanLogin>
-      <ObjectId>16384</ObjectId>
+    <role id="12" parent="1" name="pg_execute_server_program">
+      <ObjectId>4571</ObjectId>
     </role>
-    <role id="20" parent="1" name="pgsodium_keyholder">
+    <role id="13" parent="1" name="pg_signal_backend">
+      <ObjectId>4200</ObjectId>
+    </role>
+    <role id="14" parent="1" name="pg_checkpoint">
+      <ObjectId>4544</ObjectId>
+    </role>
+    <role id="15" parent="1" name="dashboard_user">
+      <CreateDb>1</CreateDb>
+      <CreateRole>1</CreateRole>
+      <ObjectId>16595</ObjectId>
+      <Replication>1</Replication>
+    </role>
+    <role id="16" parent="1" name="pgsodium_keyiduser">
+      <ObjectId>16732</ObjectId>
+    </role>
+    <role id="17" parent="1" name="pgsodium_keyholder">
       <ObjectId>16733</ObjectId>
       <RoleGrants>16732</RoleGrants>
     </role>
-    <role id="21" parent="1" name="pgsodium_keyiduser">
-      <ObjectId>16732</ObjectId>
-    </role>
-    <role id="22" parent="1" name="pgsodium_keymaker">
+    <role id="18" parent="1" name="pgsodium_keymaker">
       <ObjectId>16734</ObjectId>
       <RoleGrants>16732
 16733</RoleGrants>
+    </role>
+    <role id="19" parent="1" name="authenticated">
+      <Config>statement_timeout=8s</Config>
+      <ObjectId>16479</ObjectId>
+    </role>
+    <role id="20" parent="1" name="anon">
+      <Config>statement_timeout=3s</Config>
+      <ObjectId>16478</ObjectId>
+    </role>
+    <role id="21" parent="1" name="service_role">
+      <BypassRls>1</BypassRls>
+      <ObjectId>16480</ObjectId>
+      <RoleGrants>16733</RoleGrants>
+    </role>
+    <role id="22" parent="1" name="supabase_admin">
+      <BypassRls>1</BypassRls>
+      <CanLogin>1</CanLogin>
+      <Config>search_path=&quot;$user&quot;, public, auth, extensions</Config>
+      <CreateDb>1</CreateDb>
+      <CreateRole>1</CreateRole>
+      <ObjectId>16420</ObjectId>
+      <Replication>1</Replication>
+      <SuperRole>1</SuperRole>
     </role>
     <role id="23" parent="1" name="postgres">
       <BypassRls>1</BypassRls>
@@ -1595,20 +1595,20 @@ lock_timeout=8s</Config>
 16734!
 3373</RoleGrants>
     </role>
-    <role id="24" parent="1" name="service_role">
-      <BypassRls>1</BypassRls>
-      <ObjectId>16480</ObjectId>
-      <RoleGrants>16733</RoleGrants>
-    </role>
-    <role id="25" parent="1" name="supabase_admin">
-      <BypassRls>1</BypassRls>
+    <role id="24" parent="1" name="authenticator">
       <CanLogin>1</CanLogin>
-      <Config>search_path=&quot;$user&quot;, public, auth, extensions</Config>
-      <CreateDb>1</CreateDb>
-      <CreateRole>1</CreateRole>
-      <ObjectId>16420</ObjectId>
-      <Replication>1</Replication>
-      <SuperRole>1</SuperRole>
+      <Config>session_preload_libraries=supautils, safeupdate
+statement_timeout=8s
+lock_timeout=8s</Config>
+      <Inherit>0</Inherit>
+      <ObjectId>16481</ObjectId>
+      <RoleGrants>16478
+16479
+16480</RoleGrants>
+    </role>
+    <role id="25" parent="1" name="pgbouncer">
+      <CanLogin>1</CanLogin>
+      <ObjectId>16384</ObjectId>
     </role>
     <role id="26" parent="1" name="supabase_auth_admin">
       <CanLogin>1</CanLogin>
@@ -1618,24 +1618,24 @@ idle_in_transaction_session_timeout=60000</Config>
       <Inherit>0</Inherit>
       <ObjectId>16535</ObjectId>
     </role>
-    <role id="27" parent="1" name="supabase_read_only_user">
-      <BypassRls>1</BypassRls>
-      <CanLogin>1</CanLogin>
-      <ObjectId>16422</ObjectId>
-      <RoleGrants>6181</RoleGrants>
-    </role>
-    <role id="28" parent="1" name="supabase_replication_admin">
-      <CanLogin>1</CanLogin>
-      <ObjectId>16421</ObjectId>
-      <Replication>1</Replication>
-    </role>
-    <role id="29" parent="1" name="supabase_storage_admin">
+    <role id="27" parent="1" name="supabase_storage_admin">
       <CanLogin>1</CanLogin>
       <Config>search_path=storage</Config>
       <CreateRole>1</CreateRole>
       <Inherit>0</Inherit>
       <ObjectId>16590</ObjectId>
       <RoleGrants>16481</RoleGrants>
+    </role>
+    <role id="28" parent="1" name="supabase_replication_admin">
+      <CanLogin>1</CanLogin>
+      <ObjectId>16421</ObjectId>
+      <Replication>1</Replication>
+    </role>
+    <role id="29" parent="1" name="supabase_read_only_user">
+      <BypassRls>1</BypassRls>
+      <CanLogin>1</CanLogin>
+      <ObjectId>16422</ObjectId>
+      <RoleGrants>6181</RoleGrants>
     </role>
     <tablespace id="30" parent="1" name="pg_default">
       <ObjectId>1663</ObjectId>
@@ -5319,64 +5319,232 @@ idle_in_transaction_session_timeout=60000</Config>
     <schema id="289" parent="2" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <Grants>28723||10|d|G
-28723||16478|d|G
-28723||16479|d|G
-28723||16480|d|G
-28723||10|a|G
-28723||16478|a|G
-28723||16479|a|G
-28723||16480|a|G
-28723||10|x|G
-28723||16478|x|G
-28723||16479|x|G
-28723||16480|x|G
-28723||10|r|G
-28723||16478|r|G
-28723||16479|r|G
-28723||16480|r|G
-28723||10|t|G
-28723||16478|t|G
-28723||16479|t|G
-28723||16480|t|G
-28723||10|D|G
-28723||16478|D|G
-28723||16479|D|G
-28723||16480|D|G
-28723||10|w|G
-28723||16478|w|G
-28723||16479|w|G
-28723||16480|w|G
-28729||10|d|G
-28729||16478|d|G
-28729||16479|d|G
-28729||16480|d|G
-28729||10|a|G
-28729||16478|a|G
-28729||16479|a|G
-28729||16480|a|G
-28729||10|x|G
-28729||16478|x|G
-28729||16479|x|G
-28729||16480|x|G
-28729||10|r|G
-28729||16478|r|G
-28729||16479|r|G
-28729||16480|r|G
-28729||10|t|G
-28729||16478|t|G
-28729||16479|t|G
-28729||16480|t|G
-28729||10|D|G
-28729||16478|D|G
-28729||16479|D|G
-28729||16480|D|G
-28729||10|w|G
-28729||16478|w|G
-28729||16479|w|G
-28729||16480|w|G</Grants>
-      <IntrospectionStateNumber>1158</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2024-02-28.14:17:06</LastIntrospectionLocalTimestamp>
+      <Grants>28755||10|d|G
+28755||16478|d|G
+28755||16479|d|G
+28755||16480|d|G
+28755||10|a|G
+28755||16478|a|G
+28755||16479|a|G
+28755||16480|a|G
+28755||10|x|G
+28755||16478|x|G
+28755||16479|x|G
+28755||16480|x|G
+28755||10|r|G
+28755||16478|r|G
+28755||16479|r|G
+28755||16480|r|G
+28755||10|t|G
+28755||16478|t|G
+28755||16479|t|G
+28755||16480|t|G
+28755||10|D|G
+28755||16478|D|G
+28755||16479|D|G
+28755||16480|D|G
+28755||10|w|G
+28755||16478|w|G
+28755||16479|w|G
+28755||16480|w|G
+28761||10|d|G
+28761||16478|d|G
+28761||16479|d|G
+28761||16480|d|G
+28761||10|a|G
+28761||16478|a|G
+28761||16479|a|G
+28761||16480|a|G
+28761||10|x|G
+28761||16478|x|G
+28761||16479|x|G
+28761||16480|x|G
+28761||10|r|G
+28761||16478|r|G
+28761||16479|r|G
+28761||16480|r|G
+28761||10|t|G
+28761||16478|t|G
+28761||16479|t|G
+28761||16480|t|G
+28761||10|D|G
+28761||16478|D|G
+28761||16479|D|G
+28761||16480|D|G
+28761||10|w|G
+28761||16478|w|G
+28761||16479|w|G
+28761||16480|w|G
+28772||10|d|G
+28772||16478|d|G
+28772||16479|d|G
+28772||16480|d|G
+28772||10|a|G
+28772||16478|a|G
+28772||16479|a|G
+28772||16480|a|G
+28772||10|x|G
+28772||16478|x|G
+28772||16479|x|G
+28772||16480|x|G
+28772||10|r|G
+28772||16478|r|G
+28772||16479|r|G
+28772||16480|r|G
+28772||10|t|G
+28772||16478|t|G
+28772||16479|t|G
+28772||16480|t|G
+28772||10|D|G
+28772||16478|D|G
+28772||16479|D|G
+28772||16480|D|G
+28772||10|w|G
+28772||16478|w|G
+28772||16479|w|G
+28772||16480|w|G
+28783||10|d|G
+28783||16478|d|G
+28783||16479|d|G
+28783||16480|d|G
+28783||10|a|G
+28783||16478|a|G
+28783||16479|a|G
+28783||16480|a|G
+28783||10|x|G
+28783||16478|x|G
+28783||16479|x|G
+28783||16480|x|G
+28783||10|r|G
+28783||16478|r|G
+28783||16479|r|G
+28783||16480|r|G
+28783||10|t|G
+28783||16478|t|G
+28783||16479|t|G
+28783||16480|t|G
+28783||10|D|G
+28783||16478|D|G
+28783||16479|D|G
+28783||16480|D|G
+28783||10|w|G
+28783||16478|w|G
+28783||16479|w|G
+28783||16480|w|G
+28789||10|d|G
+28789||16478|d|G
+28789||16479|d|G
+28789||16480|d|G
+28789||10|a|G
+28789||16478|a|G
+28789||16479|a|G
+28789||16480|a|G
+28789||10|x|G
+28789||16478|x|G
+28789||16479|x|G
+28789||16480|x|G
+28789||10|r|G
+28789||16478|r|G
+28789||16479|r|G
+28789||16480|r|G
+28789||10|t|G
+28789||16478|t|G
+28789||16479|t|G
+28789||16480|t|G
+28789||10|D|G
+28789||16478|D|G
+28789||16479|D|G
+28789||16480|D|G
+28789||10|w|G
+28789||16478|w|G
+28789||16479|w|G
+28789||16480|w|G
+28794||10|d|G
+28794||16478|d|G
+28794||16479|d|G
+28794||16480|d|G
+28794||10|a|G
+28794||16478|a|G
+28794||16479|a|G
+28794||16480|a|G
+28794||10|x|G
+28794||16478|x|G
+28794||16479|x|G
+28794||16480|x|G
+28794||10|r|G
+28794||16478|r|G
+28794||16479|r|G
+28794||16480|r|G
+28794||10|t|G
+28794||16478|t|G
+28794||16479|t|G
+28794||16480|t|G
+28794||10|D|G
+28794||16478|D|G
+28794||16479|D|G
+28794||16480|D|G
+28794||10|w|G
+28794||16478|w|G
+28794||16479|w|G
+28794||16480|w|G
+28817||10|d|G
+28817||16478|d|G
+28817||16479|d|G
+28817||16480|d|G
+28817||10|a|G
+28817||16478|a|G
+28817||16479|a|G
+28817||16480|a|G
+28817||10|x|G
+28817||16478|x|G
+28817||16479|x|G
+28817||16480|x|G
+28817||10|r|G
+28817||16478|r|G
+28817||16479|r|G
+28817||16480|r|G
+28817||10|t|G
+28817||16478|t|G
+28817||16479|t|G
+28817||16480|t|G
+28817||10|D|G
+28817||16478|D|G
+28817||16479|D|G
+28817||16480|D|G
+28817||10|w|G
+28817||16478|w|G
+28817||16479|w|G
+28817||16480|w|G
+28849||10|d|G
+28849||16478|d|G
+28849||16479|d|G
+28849||16480|d|G
+28849||10|a|G
+28849||16478|a|G
+28849||16479|a|G
+28849||16480|a|G
+28849||10|x|G
+28849||16478|x|G
+28849||16479|x|G
+28849||16480|x|G
+28849||10|r|G
+28849||16478|r|G
+28849||16479|r|G
+28849||16480|r|G
+28849||10|t|G
+28849||16478|t|G
+28849||16479|t|G
+28849||16480|t|G
+28849||10|D|G
+28849||16478|D|G
+28849||16479|D|G
+28849||16480|D|G
+28849||10|w|G
+28849||16478|w|G
+28849||16479|w|G
+28849||16480|w|G</Grants>
+      <IntrospectionStateNumber>1191</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2024-02-28.18:07:46</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>749</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
@@ -5456,81 +5624,507 @@ idle_in_transaction_session_timeout=60000</Config>
 SECURITY LABEL</Tags>
       <CallRoutineId>16831</CallRoutineId>
     </trigger>
-    <table id="302" parent="289" name="area">
-      <ObjectId>28729</ObjectId>
-      <StateNumber>1140</StateNumber>
+    <object-type id="302" parent="289" name="priority">
+      <Labels>LOWEST
+LOW
+MEDIUM
+HIGH
+HIGHEST</Labels>
+      <ObjectId>28839</ObjectId>
+      <StateNumber>1189</StateNumber>
+      <SubCategory>enum</SubCategory>
+      <SubKind>enum</SubKind>
+      <OwnerName>postgres</OwnerName>
+    </object-type>
+    <table id="303" parent="289" name="area">
+      <ObjectId>28761</ObjectId>
+      <StateNumber>1166</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="303" parent="289" name="user">
-      <ObjectId>28723</ObjectId>
-      <StateNumber>1140</StateNumber>
+    <table id="304" parent="289" name="list">
+      <ObjectId>28817</ObjectId>
+      <StateNumber>1188</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <column id="304" parent="302" name="id">
+    <table id="305" parent="289" name="profile">
+      <ObjectId>28772</ObjectId>
+      <StateNumber>1167</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="306" parent="289" name="task">
+      <ObjectId>28849</ObjectId>
+      <StateNumber>1190</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="307" parent="289" name="team">
+      <ObjectId>28783</ObjectId>
+      <StateNumber>1171</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="308" parent="289" name="team_member">
+      <ObjectId>28794</ObjectId>
+      <StateNumber>1171</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="309" parent="289" name="team_role">
+      <ObjectId>28789</ObjectId>
+      <StateNumber>1171</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="310" parent="289" name="user">
+      <ObjectId>28755</ObjectId>
+      <StateNumber>1166</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <column id="311" parent="303" name="id">
       <DasType>uuid|0s</DasType>
       <DefaultExpression>gen_random_uuid()</DefaultExpression>
+      <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>1140</StateNumber>
+      <StateNumber>1166</StateNumber>
       <TypeId>2950</TypeId>
     </column>
-    <column id="305" parent="302" name="title">
+    <column id="312" parent="303" name="title">
       <DasType>varchar(100)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>1140</StateNumber>
+      <StateNumber>1166</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="306" parent="302" name="user_id">
+    <column id="313" parent="303" name="user_id">
       <DasType>uuid|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>1140</StateNumber>
+      <StateNumber>1166</StateNumber>
       <TypeId>2950</TypeId>
     </column>
-    <foreign-key id="307" parent="302" name="fk_area_user">
+    <foreign-key id="314" parent="303" name="fk_area_user">
       <ColNames>user_id</ColNames>
-      <ObjectId>28746</ObjectId>
+      <ObjectId>28767</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <StateNumber>1157</StateNumber>
+      <StateNumber>1166</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>28723</RefTableId>
+      <RefTableId>28755</RefTableId>
     </foreign-key>
-    <column id="308" parent="303" name="id">
-      <DasType>uuid|0s</DasType>
-      <DefaultExpression>gen_random_uuid()</DefaultExpression>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StateNumber>1138</StateNumber>
-      <TypeId>2950</TypeId>
-    </column>
-    <column id="309" parent="303" name="email">
-      <DasType>varchar(100)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-      <StateNumber>1138</StateNumber>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="310" parent="303" name="password">
-      <DasType>varchar(255)|0s</DasType>
-      <Position>3</Position>
-      <StateNumber>1138</StateNumber>
-      <TypeId>1043</TypeId>
-    </column>
-    <index id="311" parent="303" name="pk_user_id">
+    <index id="315" parent="303" name="pk_area_id">
       <ColNames>id</ColNames>
-      <ObjectId>28727</ObjectId>
+      <ObjectId>28765</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>1138</StateNumber>
+      <StateNumber>1166</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="312" parent="303" name="pk_user_id">
-      <ObjectId>28728</ObjectId>
+    <key id="316" parent="303" name="pk_area_id">
+      <ObjectId>28766</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>1138</StateNumber>
-      <UnderlyingIndexId>28727</UnderlyingIndexId>
+      <StateNumber>1166</StateNumber>
+      <UnderlyingIndexId>28765</UnderlyingIndexId>
+    </key>
+    <column id="317" parent="304" name="id">
+      <DasType>uuid|0s</DasType>
+      <DefaultExpression>gen_random_uuid()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1188</StateNumber>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="318" parent="304" name="title">
+      <DasType>varchar(100)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1188</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="319" parent="304" name="subtitle">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>3</Position>
+      <StateNumber>1188</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="320" parent="304" name="owner_id">
+      <DasType>uuid|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StateNumber>1188</StateNumber>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="321" parent="304" name="area_id">
+      <DasType>uuid|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <StateNumber>1188</StateNumber>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="322" parent="304" name="team_id">
+      <DasType>uuid|0s</DasType>
+      <Position>6</Position>
+      <StateNumber>1188</StateNumber>
+      <TypeId>2950</TypeId>
+    </column>
+    <foreign-key id="323" parent="304" name="fk_list_owner_id">
+      <ColNames>owner_id</ColNames>
+      <ObjectId>28823</ObjectId>
+      <StateNumber>1188</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>28772</RefTableId>
+    </foreign-key>
+    <foreign-key id="324" parent="304" name="fk_list_area_id">
+      <ColNames>area_id</ColNames>
+      <ObjectId>28828</ObjectId>
+      <StateNumber>1188</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>28761</RefTableId>
+    </foreign-key>
+    <foreign-key id="325" parent="304" name="fk_list_team_id">
+      <ColNames>team_id</ColNames>
+      <ObjectId>28833</ObjectId>
+      <StateNumber>1188</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>28783</RefTableId>
+    </foreign-key>
+    <index id="326" parent="304" name="pk_list_id">
+      <ColNames>id</ColNames>
+      <ObjectId>28821</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1188</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="327" parent="304" name="pk_list_id">
+      <ObjectId>28822</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1188</StateNumber>
+      <UnderlyingIndexId>28821</UnderlyingIndexId>
+    </key>
+    <column id="328" parent="305" name="id">
+      <DasType>uuid|0s</DasType>
+      <DefaultExpression>gen_random_uuid()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1167</StateNumber>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="329" parent="305" name="name">
+      <DasType>varchar(100)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1167</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="330" parent="305" name="surname">
+      <DasType>varchar(100)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StateNumber>1167</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="331" parent="305" name="avatar">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>4</Position>
+      <StateNumber>1167</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="332" parent="305" name="user_id">
+      <DasType>uuid|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <StateNumber>1167</StateNumber>
+      <TypeId>2950</TypeId>
+    </column>
+    <foreign-key id="333" parent="305" name="fk_profile_user">
+      <ColNames>user_id</ColNames>
+      <ObjectId>28778</ObjectId>
+      <OnDelete>cascade</OnDelete>
+      <StateNumber>1167</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>28755</RefTableId>
+    </foreign-key>
+    <index id="334" parent="305" name="pk_profile_id">
+      <ColNames>id</ColNames>
+      <ObjectId>28776</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1167</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="335" parent="305" name="pk_profile_id">
+      <ObjectId>28777</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1167</StateNumber>
+      <UnderlyingIndexId>28776</UnderlyingIndexId>
+    </key>
+    <column id="336" parent="306" name="id">
+      <DasType>uuid|0s</DasType>
+      <DefaultExpression>gen_random_uuid()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1190</StateNumber>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="337" parent="306" name="title">
+      <DasType>varchar(100)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1190</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="338" parent="306" name="description">
+      <DasType>text|0s</DasType>
+      <Position>3</Position>
+      <StateNumber>1190</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="339" parent="306" name="priority">
+      <DasType>priority|0s</DasType>
+      <DefaultExpression>&apos;MEDIUM&apos;::priority</DefaultExpression>
+      <Position>4</Position>
+      <StateNumber>1190</StateNumber>
+      <TypeId>28839</TypeId>
+    </column>
+    <column id="340" parent="306" name="creator_id">
+      <DasType>uuid|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <StateNumber>1190</StateNumber>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="341" parent="306" name="assignee_id">
+      <DasType>uuid|0s</DasType>
+      <Position>6</Position>
+      <StateNumber>1190</StateNumber>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="342" parent="306" name="list_id">
+      <DasType>uuid|0s</DasType>
+      <Position>7</Position>
+      <StateNumber>1190</StateNumber>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="343" parent="306" name="createdat">
+      <DasType>timestamp|0s</DasType>
+      <DefaultExpression>now()</DefaultExpression>
+      <Position>8</Position>
+      <StateNumber>1190</StateNumber>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="344" parent="306" name="deadline">
+      <DasType>timestamp|0s</DasType>
+      <Position>9</Position>
+      <StateNumber>1190</StateNumber>
+      <TypeId>1114</TypeId>
+    </column>
+    <foreign-key id="345" parent="306" name="fk_task_creator_id">
+      <ColNames>creator_id</ColNames>
+      <ObjectId>28859</ObjectId>
+      <StateNumber>1190</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>28772</RefTableId>
+    </foreign-key>
+    <foreign-key id="346" parent="306" name="fk_task_assignee_id">
+      <ColNames>assignee_id</ColNames>
+      <ObjectId>28864</ObjectId>
+      <StateNumber>1190</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>28772</RefTableId>
+    </foreign-key>
+    <foreign-key id="347" parent="306" name="fk_task_list_id">
+      <ColNames>list_id</ColNames>
+      <ObjectId>28869</ObjectId>
+      <StateNumber>1190</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>28817</RefTableId>
+    </foreign-key>
+    <index id="348" parent="306" name="pk_task_id">
+      <ColNames>id</ColNames>
+      <ObjectId>28857</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1190</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="349" parent="306" name="pk_task_id">
+      <ObjectId>28858</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1190</StateNumber>
+      <UnderlyingIndexId>28857</UnderlyingIndexId>
+    </key>
+    <column id="350" parent="307" name="id">
+      <DasType>uuid|0s</DasType>
+      <DefaultExpression>gen_random_uuid()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1169</StateNumber>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="351" parent="307" name="title">
+      <DasType>varchar(100)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1180</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="352" parent="307" name="pk_team_id">
+      <ColNames>id</ColNames>
+      <ObjectId>28787</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1169</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="353" parent="307" name="pk_team_id">
+      <ObjectId>28788</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1169</StateNumber>
+      <UnderlyingIndexId>28787</UnderlyingIndexId>
+    </key>
+    <column id="354" parent="308" name="id">
+      <DasType>uuid|0s</DasType>
+      <DefaultExpression>gen_random_uuid()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1171</StateNumber>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="355" parent="308" name="team_id">
+      <DasType>uuid|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1171</StateNumber>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="356" parent="308" name="profile_id">
+      <DasType>uuid|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StateNumber>1171</StateNumber>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="357" parent="308" name="role">
+      <DasType>varchar(50)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StateNumber>1171</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <foreign-key id="358" parent="308" name="fk_team_member_team_id">
+      <ColNames>team_id</ColNames>
+      <ObjectId>28800</ObjectId>
+      <OnDelete>cascade</OnDelete>
+      <StateNumber>1171</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>28783</RefTableId>
+    </foreign-key>
+    <foreign-key id="359" parent="308" name="fk_team_member_profile_id">
+      <ColNames>profile_id</ColNames>
+      <ObjectId>28805</ObjectId>
+      <OnDelete>cascade</OnDelete>
+      <StateNumber>1171</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>28772</RefTableId>
+    </foreign-key>
+    <foreign-key id="360" parent="308" name="fk_team_member_role">
+      <ColNames>role</ColNames>
+      <ObjectId>28810</ObjectId>
+      <OnDelete>set-default</OnDelete>
+      <StateNumber>1171</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>28789</RefTableId>
+    </foreign-key>
+    <index id="361" parent="308" name="pk_team_member_id">
+      <ColNames>id</ColNames>
+      <ObjectId>28798</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1171</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="362" parent="308" name="pk_team_member_id">
+      <ObjectId>28799</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1171</StateNumber>
+      <UnderlyingIndexId>28798</UnderlyingIndexId>
+    </key>
+    <column id="363" parent="309" name="role">
+      <DasType>varchar(50)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1170</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="364" parent="309" name="pk_team_role">
+      <ColNames>role</ColNames>
+      <ObjectId>28792</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1170</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+      <CollationNames>default</CollationNames>
+      <CollationIds>100</CollationIds>
+      <CollationParentNames>pg_catalog</CollationParentNames>
+    </index>
+    <key id="365" parent="309" name="pk_team_role">
+      <ObjectId>28793</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1170</StateNumber>
+      <UnderlyingIndexId>28792</UnderlyingIndexId>
+    </key>
+    <column id="366" parent="310" name="id">
+      <DasType>uuid|0s</DasType>
+      <DefaultExpression>gen_random_uuid()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1165</StateNumber>
+      <TypeId>2950</TypeId>
+    </column>
+    <column id="367" parent="310" name="email">
+      <DasType>varchar(100)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>1165</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="368" parent="310" name="password">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>3</Position>
+      <StateNumber>1165</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="369" parent="310" name="pk_user_id">
+      <ColNames>id</ColNames>
+      <ObjectId>28759</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1165</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <index id="370" parent="310" name="email_unique">
+      <ColNames>email</ColNames>
+      <ObjectId>28815</ObjectId>
+      <StateNumber>1185</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+      <CollationNames>default</CollationNames>
+      <CollationIds>100</CollationIds>
+      <CollationParentNames>pg_catalog</CollationParentNames>
+    </index>
+    <key id="371" parent="310" name="pk_user_id">
+      <ObjectId>28760</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1165</StateNumber>
+      <UnderlyingIndexId>28759</UnderlyingIndexId>
+    </key>
+    <key id="372" parent="310" name="email_unique">
+      <ObjectId>28816</ObjectId>
+      <StateNumber>1185</StateNumber>
+      <UnderlyingIndexId>28815</UnderlyingIndexId>
     </key>
   </database-model>
 </dataSource>

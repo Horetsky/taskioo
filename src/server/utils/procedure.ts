@@ -11,51 +11,44 @@ import {
     whereQuery
 } from "@/server/utils/query";
 import { createQueryStack } from "@/server/utils/queryStack";
-import { withReturn } from "@/server/utils/withReturn";
 
-type ProcedureReturn<T> = {
-    query: string;
-    returns: (schema?: ZodSchema<T>) => Promise<T> | unknown;
-}
-type Query<T, V> = (table: string, options: Options<T>) => ProcedureReturn<V>;
+type Method<T> = (options: Options<T>) => string;
 
-type ProcedureMethods<Input, Output> = {
-    select: Query<Input, Output>;
-    insert: Query<Input, Output>;
-    update: Query<Input, Output>;
-    delete: Query<Input, Output>;
+type ProcedureMethods<Input> = {
+    select: Method<Input>;
+    insert: Method<Input>;
+    update: Method<Input>;
+    delete: Method<Input>;
 }
 
-class Procedure<Input, Output> implements ProcedureMethods<Input, Output>{
+class Query<Input> implements ProcedureMethods<Input>{
 
-    select(table: string, options: Options<Input>) {
+    protected input: ZodSchema<Input>;
+    protected table: string;
+
+    constructor(table: string, input: ZodSchema<Input>) {
+        this.table = table;
+        this.input = input;
+    }
+
+    select(options: Options<Input>) {
         const queryStack = [selectQuery, includeQuery, whereQuery, orderQuery, limitQuery];
-        const query = createQueryStack(queryStack, options, table);
-
-        return { returns: withReturn(query), query };
+        return createQueryStack(queryStack, options, this.table);
     }
-    insert(table: string, options: Options<Input>) {
+    insert(options: Options<Input>) {
         const queryStack = [insertQuery];
-        const query = createQueryStack(queryStack, options, table);
-
-        return { returns: withReturn(query), query };
+        return createQueryStack(queryStack, options, this.table);
     }
 
-    update(table: string, options: Options<Input>) {
+    update(options: Options<Input>) {
         const queryStack = [updateQuery, whereQuery];
-        const query = createQueryStack(queryStack, options, table);
-
-        return { returns: withReturn(query), query };
+        return createQueryStack(queryStack, options, this.table);
     }
 
-    delete(table: string, options: Options<Input>) {
+    delete(options: Options<Input>) {
         const queryStack = [deleteQuery, whereQuery];
-        const query = createQueryStack(queryStack, options, table);
-
-        return { returns: withReturn(query), query };
+        return createQueryStack(queryStack, options, this.table);
     }
-
 }
 
-const procedure = new Procedure();
-export { procedure };
+export { Query };
