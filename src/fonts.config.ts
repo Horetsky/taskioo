@@ -1,13 +1,20 @@
-import { Inter } from "next/font/google";
+import { Lato, Oswald } from "next/font/google";
 
-const inter = Inter({
+const lato = Lato({
     subsets: ["latin"],
-    variable: "--font-latin"
+    weight: ["400", "700", "900"],
+    variable: "--font-lato"
+});
+const oswald = Oswald({
+    subsets: ["latin"],
+    weight: ["400", "600"],
+    variable: "--font-oswald"
 });
 
-const fonts = `${inter.variable}`;
+const fonts = `${lato.variable} ${oswald.variable}`;
 
 export {
     fonts,
-    inter
+    lato,
+    oswald
 };

@@ -14,7 +14,6 @@ export class Adapter<T> implements Methods<T>{
 
     constructor(table: string, input: ZodSchema<T>) {
         this.query = new Query<T>(table, input);
-
     }
 
     findUnique(options: SelectUniqueOptions<T>) {
