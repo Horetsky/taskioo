@@ -1,54 +1,17 @@
-import { type ZodSchema } from "zod";
-import { type Options } from "@/server/types";
-import {
-    deleteQuery,
-    includeQuery,
-    insertQuery,
-    limitQuery,
-    orderQuery,
-    selectQuery,
-    updateQuery,
-    whereQuery
-} from "@/server/utils/query";
-import { createQueryStack } from "@/server/utils/queryStack";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-type Method<T> = (options: Options<T>) => string;
+import type { ZodSchema } from "zod";
+import { postgres } from "@/lib/pool";
 
-type ProcedureMethods<Input> = {
-    select: Method<Input>;
-    insert: Method<Input>;
-    update: Method<Input>;
-    delete: Method<Input>;
+export function procedure(query: string) {
+
+    async function returns<Output = any>(schema?: ZodSchema<Output>): Promise<Output> {
+        const result = await postgres(query);
+
+        if(schema) return schema.parse(result.rows[0]);
+
+        return result.rows[0] as Output;
+    }
+
+    return { returns };
 }
-
-class Query<Input> implements ProcedureMethods<Input>{
-
-    protected input: ZodSchema<Input>;
-    protected table: string;
-
-    constructor(table: string, input: ZodSchema<Input>) {
-        this.table = table;
-        this.input = input;
-    }
-
-    select(options: Options<Input>) {
-        const queryStack = [selectQuery, includeQuery, whereQuery, orderQuery, limitQuery];
-        return createQueryStack(queryStack, options, this.table);
-    }
-    insert(options: Options<Input>) {
-        const queryStack = [insertQuery];
-        return createQueryStack(queryStack, options, this.table);
-    }
-
-    update(options: Options<Input>) {
-        const queryStack = [updateQuery, whereQuery];
-        return createQueryStack(queryStack, options, this.table);
-    }
-
-    delete(options: Options<Input>) {
-        const queryStack = [deleteQuery, whereQuery];
-        return createQueryStack(queryStack, options, this.table);
-    }
-}
-
-export { Query };

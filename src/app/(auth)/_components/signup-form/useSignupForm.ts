@@ -1,12 +1,13 @@
 import { z } from "zod";
-import { type UseFormHookReturn } from "@/types";
+import { type AuthServerError, type UseFormHookReturn } from "@/types";
 import { requiredString } from "@/lib/zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createUser } from "@/server/api";
+import { useAction } from "next-safe-action/hooks";
 
 export const signupFormSchema = z.object({
-    email: requiredString("Email is required"),
+    email: requiredString("Email is required").email("Email format is not valid"),
     password: requiredString("Password is required"),
     agreement:
         z.boolean()
@@ -15,7 +16,9 @@ export const signupFormSchema = z.object({
 
 export type SignupFormValues = z.infer<typeof signupFormSchema>;
 
-export function useSignupForm(): UseFormHookReturn<SignupFormValues> {
+export function useSignupForm(): UseFormHookReturn<SignupFormValues, AuthServerError> {
+
+    const { execute, result, status } = useAction(createUser);
 
     const defaultValues: SignupFormValues = {
         email: "",
@@ -29,7 +32,14 @@ export function useSignupForm(): UseFormHookReturn<SignupFormValues> {
         resolver: zodResolver(signupFormSchema),
     });
 
-    const handleSubmit = form.handleSubmit((data) => createUser(data));
 
-    return { form, handleSubmit };
+    const handleSubmit = form.handleSubmit(execute);
+
+    return {
+        form,
+        status,
+        loading: status === "executing",
+        handleSubmit,
+        result: result.data
+    };
 }

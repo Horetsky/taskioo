@@ -1,12 +1,10 @@
 import {
-    type DeleteOptions,
-    type Methods,
-    type MutateOptions,
-    type SelectOptions,
-    type SelectUniqueOptions
+    type Options,
+    type CreateOptions,
+    type Methods, type NoId, type SelectOptions
 } from "@/server/types";
 import { type ZodSchema } from "zod";
-import { Query } from "@/server/utils/procedure";
+import { Query } from "@/server/utils/query";
 
 export class Adapter<T> implements Methods<T>{
 
@@ -15,20 +13,16 @@ export class Adapter<T> implements Methods<T>{
     constructor(table: string, input: ZodSchema<T>) {
         this.query = new Query<T>(table, input);
     }
-
-    findUnique(options: SelectUniqueOptions<T>) {
+    select(options: SelectOptions<T>) {
         return this.query.select(options);
     }
-    findMany(options: SelectOptions<T>) {
-        return this.query.select(options);
-    }
-    create(options: MutateOptions<T>) {
+    create(options: CreateOptions<T>) {
         return this.query.insert(options);
     }
-    update(options: MutateOptions<T>) {
-        return this.query.update( options);
+    update(options: Options<T>) {
+        return this.query.update(options);
     }
-    delete(options: DeleteOptions<T>) {
+    delete(options: Options<T>) {
         return this.query.delete(options);
     }
 }

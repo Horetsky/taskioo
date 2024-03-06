@@ -1,97 +1,54 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
-import type { Options } from "@/server/types";
-
-function selectQuery<Schema>({ select }: Options<Schema>, table: string, query: string) {
-    if(!select) return `SELECT * FROM "${table}"`;
-
-    const entries =
-        Object.entries(select).filter(([_, value]) => value);
-    if(entries.length === 0) return query;
-    const fields = entries.map(([key]) => key);
-
-    return `SELECT ${fields.join(", ")} FROM "${table}"`;
-}
-
-function insertQuery<Schema>({ data }: Options<Schema>, table: string, query: string) {
-    if(!data) return query;
-
-    const entries =
-        Object.entries(data).filter(([_, value]) => value);
-    if(entries.length === 0) return query;
-
-    const fields = entries.map(([key]) => key).join(", ");
-    const values = entries.map(([_, value]) => `'${value}'`).join(", ");
-
-    return `INSERT INTO "${table}" (${fields}) VALUES (${values})`;
-}
-
-export function updateQuery<Schema>({ data }: Options<Schema>, table: string, query: string) {
-    if(!data) return query;
-
-    const dataEntries =
-        Object.entries(data).filter(([_, value]) => value);
-    if(dataEntries.length === 0) return query;
-
-    const values = dataEntries.map(([key, value]) => `"${key}" = '${value}'`).join(", ");
-
-    return `UPDATE "${table}" SET ${values}`;
-}
-
-export function deleteQuery<Schema>({}: Options<Schema>, table: string, query: string) {
-    return `DELETE FROM "${table}"`;
-}
-
-function includeQuery<Schema>({ include }: Options<Schema>, table: string, query: string) {
-    if(!include) return query;
-
-    const entries =
-        Object.entries(include).filter(([_, value]) => value);
-    if(entries.length === 0) return query;
-
-    return entries.reduce((acc, [key, value]) => {
-        return acc.concat(` JOIN "${key}" ON "${table}".id = "${key}".${value}`);
-    }, query);
-}
-
-function whereQuery<Schema>({ where }: Options<Schema>, table: string, query: string) {
-    if(!where) return query;
-
-    const entries =
-        Object.entries(where).filter(([_, value]) => value);
-    if(entries.length === 0) return query;
-
-    return entries.reduce((acc, [key, value], index) => {
-        if(index % 2 === 0) {
-            return acc.concat(` WHERE "${table}".${key} = '${value}'`);
-        } else {
-            return acc.concat(` AND "${table}".${key} = '${value}'`);
-        }
-    }, query);
-}
-
-function orderQuery<Schema>({ order }: Options<Schema>, table: string, query: string) {
-    if(!order) return query;
-
-    const entries =
-        Object.entries(order).filter(([_, value]) => value);
-    if(entries.length === 0) return query;
-
-    return entries.reduce((acc, [key, value]) => {
-        return acc.concat(` ORDER BY ${key} ${value}`);
-    }, query);
-}
-
-function limitQuery<Schema>({ limit }: Options<Schema>, table: string, query: string) {
-    if(!limit) return query;
-    return query.concat(` LIMIT ${limit}`);
-}
-
-export {
-    selectQuery,
-    insertQuery,
+import { type ZodSchema } from "zod";
+import { type NoId, type Options, type SelectOptions } from "@/server/types";
+import {
+    deleteQuery,
     includeQuery,
-    whereQuery,
-    orderQuery,
-    limitQuery
-};
+    insertQuery,
+    limitQuery,
+    orderQuery, returnsQuery,
+    selectQuery,
+    updateQuery,
+    whereQuery
+} from "@/server/utils/queryTemplates";
+import { createQueryStack } from "@/server/utils/queryStack";
+
+type Method<T> = (options: Options<T>) => string;
+
+type ProcedureMethods<Input> = {
+    select: Method<Input>;
+    insert: Method<Input>;
+    update: Method<Input>;
+    delete: Method<Input>;
+}
+
+class Query<Input> implements ProcedureMethods<Input>{
+
+    protected input: ZodSchema<Input>;
+    protected table: string;
+
+    constructor(table: string, input: ZodSchema<Input>) {
+        this.table = table;
+        this.input = input;
+    }
+
+    select(options: SelectOptions<Input>) {
+        const queryStack = [selectQuery, includeQuery, whereQuery, orderQuery, limitQuery];
+        return createQueryStack(queryStack, options, this.table);
+    }
+    insert(options: Options<Input>) {
+        const queryStack = [insertQuery, returnsQuery];
+        return createQueryStack(queryStack, options, this.table);
+    }
+
+    update(options: Options<Input>) {
+        const queryStack = [updateQuery, whereQuery];
+        return createQueryStack(queryStack, options, this.table);
+    }
+
+    delete(options: Options<Input>) {
+        const queryStack = [deleteQuery, whereQuery];
+        return createQueryStack(queryStack, options, this.table);
+    }
+}
+
+export { Query };

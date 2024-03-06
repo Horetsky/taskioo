@@ -4,6 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 import { type ReactNode } from "react";
+import { Spinner } from "@/components/_icons";
 
 const buttonVariants = cva(
     "inline-flex gap-x-2 items-center justify-center whitespace-nowrap rounded-md text-base font-bold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
@@ -34,10 +35,11 @@ const buttonVariants = cva(
 export type ButtonProps = {
   asChild?: boolean;
   icon?: ReactNode;
+  loading?: boolean;
 } & React.ButtonHTMLAttributes<HTMLButtonElement> & VariantProps<typeof buttonVariants>
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ className, variant, size, children, icon, asChild = false, ...props }, ref) => {
+    ({ className, variant, size, children, icon, loading, asChild = false, ...props }, ref) => {
         const Comp = asChild ? Slot : "button";
         return (
             <Comp
@@ -47,7 +49,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 ref={ref}
                 {...props}
             >
-                { icon }
+                { loading && <Spinner variant={variant} /> }
+                { !loading && icon }
                 { children }
             </Comp>
         );
