@@ -8,13 +8,12 @@ import Link from "next/link";
 import { useSignupForm } from "./useSignupForm";
 import { AuthAlert } from "@/app/(auth)/_components/auth-alert";
 
-
 export const SignupForm = () => {
 
     const {
         form,
         loading,
-        result,
+        error,
         handleSubmit
     } = useSignupForm();
 
@@ -25,8 +24,8 @@ export const SignupForm = () => {
                 className={"flex flex-col gap-y-6"}
             >
                 {
-                    result?.error ?
-                        <AuthAlert error={result.error} /> : null
+                    error ?
+                        <AuthAlert error={error} /> : null
                 }
                 <FormInput
                     name={"email"}

@@ -1,8 +1,9 @@
 import { HaveAnAccount } from "@/app/(auth)/_components/have-an-account";
 import { LoginForm } from "@/app/(auth)/_components/login-form";
 import { cn } from "@/lib/utils";
+import { Suspense } from "react";
 
-export default function AuthForm() {
+export default function AuthForm({ searchParams }: { searchParams: { [key: string]: string | undefined }}) {
     return (
         <div
             className={cn(
@@ -18,7 +19,9 @@ export default function AuthForm() {
                     Enter your personal information to login the Taskio platform.
                 </p>
             </div>
-            <LoginForm />
+            <Suspense key={JSON.stringify(searchParams)}>
+                <LoginForm />
+            </Suspense>
             <HaveAnAccount actionText={"Sign up"} href={"/signup"}>
                 Don’t have an account?
             </HaveAnAccount>

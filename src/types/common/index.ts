@@ -11,10 +11,10 @@ export type ServerActionReturn<T> = {
     error?: T;
     success?: string
 }
-export type UseFormHookReturn<T extends FieldValues, Result> = {
+export type UseFormHookReturn<T extends FieldValues, Error = string> = {
     form: UseFormReturn<T>;
     handleSubmit: () => Promise<void>;
     loading: boolean;
-    status: HookActionStatus;
-    result?: ServerActionReturn<Result>
+    error?: Error;
+    message?: string;
 }
