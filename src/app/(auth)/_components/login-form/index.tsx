@@ -1,11 +1,9 @@
 "use client";
 
 import { Form } from "@/components/ui/form";
-import { useForm } from "react-hook-form";
 import { FormInput } from "@/components/form/form-input";
 import { AuthButtons } from "@/app/(auth)/_components/auth-buttons";
 import { useLoginForm } from "@/app/(auth)/_components/login-form/useLoginForm";
-import { AuthAlert } from "@/app/(auth)/_components/auth-alert";
 
 export const LoginForm = () => {
 
@@ -13,8 +11,6 @@ export const LoginForm = () => {
         form,
         handleSubmit,
         loading,
-        error,
-        message
     } = useLoginForm();
 
     return (
@@ -23,9 +19,6 @@ export const LoginForm = () => {
                 onSubmit={handleSubmit}
                 className={"flex flex-col gap-y-6"}
             >
-
-                <AuthAlert message={message} error={error} />
-
                 <FormInput
                     name={"email"}
                     label={"Email"}

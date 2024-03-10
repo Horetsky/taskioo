@@ -1,19 +1,13 @@
 "use client";
 
 import { type AuthServerError, type UseFormHookReturn } from "@/types";
-import { z } from "zod";
-import { requiredString } from "@/lib/zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import { loginFormSchema, type LoginFormValues } from "./validation";
 
-export const loginFormSchema = z.object({
-    email: requiredString("Email is required"),
-    password: requiredString("Password is required")
-});
-export type LoginFormValues = z.infer<typeof loginFormSchema>;
 export function useLoginForm(): UseFormHookReturn<LoginFormValues> {
 
     const [loading, setLoading] = useState(false);

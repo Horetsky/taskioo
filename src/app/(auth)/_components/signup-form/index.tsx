@@ -4,16 +4,14 @@ import { Form } from "@/components/ui/form";
 import { FormInput } from "@/components/form/form-input";
 import { FormCheckbox } from "@/components/form/form-checkbox";
 import { AuthButtons } from "@/app/(auth)/_components/auth-buttons";
-import Link from "next/link";
 import { useSignupForm } from "./useSignupForm";
-import { AuthAlert } from "@/app/(auth)/_components/auth-alert";
+import Link from "next/link";
 
 export const SignupForm = () => {
 
     const {
         form,
         loading,
-        error,
         handleSubmit
     } = useSignupForm();
 
@@ -23,10 +21,6 @@ export const SignupForm = () => {
                 onSubmit={handleSubmit}
                 className={"flex flex-col gap-y-6"}
             >
-                {
-                    error ?
-                        <AuthAlert error={error} /> : null
-                }
                 <FormInput
                     name={"email"}
                     label={"Email"}

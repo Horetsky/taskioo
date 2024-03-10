@@ -2,10 +2,9 @@
 
 import bcrypt from "bcryptjs";
 import db from "@/server/db";
-import { action } from "@/lib/safe-action";
-import { signupFormSchema } from "@/app/(auth)/_components/signup-form/useSignupForm";
-import { loginFormSchema } from "@/app/(auth)/_components/login-form/useLoginForm";
 import { procedure } from "@/server/utils/procedure";
+import { action, Response } from "@/lib/action";
+import { signupFormSchema } from "@/app/(auth)/_components/signup-form/validation";
 
 export const createUser = action(signupFormSchema, async (data) => {
 
@@ -15,7 +14,7 @@ export const createUser = action(signupFormSchema, async (data) => {
 
     const existingUser = await db.user.getByEmail(email);
     if(existingUser) {
-        throw new Error("USER_ALREADY_EXIST");
+        return new Response().error("USER_ALREADY_EXIST");
     }
 
     const createUserQuery = db.user.create({
@@ -26,8 +25,6 @@ export const createUser = action(signupFormSchema, async (data) => {
     });
 
     await procedure(createUserQuery).returns();
-});
 
-export const loginUser = action(loginFormSchema, async (data) => {
-
+    return new Response().success("Success");
 });

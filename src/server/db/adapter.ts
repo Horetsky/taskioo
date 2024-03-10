@@ -1,7 +1,8 @@
 import {
     type Options,
     type CreateOptions,
-    type Methods, type NoId, type SelectOptions
+    type Methods,
+    type SelectOptions
 } from "@/server/types";
 import { type ZodSchema } from "zod";
 import { Query } from "@/server/utils/query";

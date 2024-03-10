@@ -1,37 +1,17 @@
-"use client";
-
-import { z } from "zod";
 import { type UseFormHookReturn } from "@/types";
-import { requiredString } from "@/lib/zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createUser } from "@/server/api";
-import { useAction } from "next-safe-action/hooks";
-import { useRouter } from "next/navigation";
-
-export const signupFormSchema = z.object({
-    email: requiredString("Email is required").email("Email format is not valid"),
-    password: requiredString("Password is required"),
-    agreement:
-        z.boolean()
-            .refine(val => val, "Agreement is required")
-});
-
-export type SignupFormValues = z.infer<typeof signupFormSchema>;
+import { useAction } from "@/lib/action/hooks";
+import { signupFormSchema, type SignupFormValues } from "./validation";
 
 export function useSignupForm(): UseFormHookReturn<SignupFormValues> {
 
-    const router = useRouter();
-
     const {
         execute,
-        result,
-        status
-    } = useAction(createUser, {
-        onSuccess(data, input) {
-            router.push(`/login?user=${input.email}`);
-        }
-    });
+        loading,
+        error,
+    } = useAction(createUser);
 
     const defaultValues: SignupFormValues = {
         email: "",
@@ -50,7 +30,7 @@ export function useSignupForm(): UseFormHookReturn<SignupFormValues> {
     return {
         form,
         handleSubmit,
-        loading: status === "executing",
-        error: result.serverError
+        loading,
+        error
     };
 }
