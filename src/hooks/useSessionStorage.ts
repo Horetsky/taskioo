@@ -1,8 +1,5 @@
+"use client";
 
-type SessionStorageValue<T> = {
-    key: string;
-    value: T;
-}
 export function useSessionStorage<T>() {
 
     const setItem = (key: string, value: T) => {
@@ -10,14 +7,10 @@ export function useSessionStorage<T>() {
         sessionStorage.setItem(key, v);
     };
 
-    const getItem = (key: string): SessionStorageValue<T> | null => {
+    const getItem = (key: string): T | null => {
         const json = sessionStorage.getItem(key);
         if(json) {
-            const value = JSON.parse(json) as T;
-            return {
-                key,
-                value
-            };
+            return  JSON.parse(json) as T;
         }
 
         return null;

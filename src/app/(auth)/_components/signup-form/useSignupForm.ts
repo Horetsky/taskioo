@@ -16,7 +16,7 @@ export function useSignupForm(): UseFormHookReturn<SignupFormValues> {
         error,
     } = useAction(createUser, {
         onSuccess() {
-            router.push("/login");
+            router.replace("/login");
         }
     });
 

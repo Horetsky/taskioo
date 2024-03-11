@@ -10,7 +10,7 @@ export type Options<T> = Partial<{
         [K in keyof T]?: boolean;
     }
     include: {
-        [key: string]: boolean;
+        [key: string]: string;
     };
     order: {
         [K in keyof T]: Order
@@ -24,7 +24,7 @@ export type SelectOptions<T> = Partial<{
         [K in keyof T]?: boolean;
     }
     include: {
-        [key: string]: boolean;
+        [key: string]: string;
     };
     order: {
         [K in keyof T]: Order

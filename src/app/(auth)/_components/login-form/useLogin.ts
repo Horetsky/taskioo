@@ -24,13 +24,13 @@ export function useLogin() {
             setLoading(false);
             setError(res?.error as AuthServerError);
         }
-
-        router.refresh();
+        
+        return router.refresh();
     }
 
     return {
         handleLogin,
         loading,
-        error,
+        error
     };
 }

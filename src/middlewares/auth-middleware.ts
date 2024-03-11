@@ -3,20 +3,24 @@ import {
     DEFAULT_LOGIN_REDIRECT,
     apiAuthPrefix,
     publicRoutes,
-    authRoutes
+    authRoutes,
+    completeAuthRoutes
 } from "@/routes";
 
 export const authMiddleware = withAuth((request) => {
 
     const {
-        nextauth,
+        nextauth: { token },
         nextUrl
     } = request;
 
-    const isAuthed = !!nextauth.token;
+    const isAuthed = !!token;
+    const isProfileCompeted = !!token?.profile;
+
     const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
     const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
     const isAuthRoute = authRoutes.includes(nextUrl.pathname);
+    const isCompleteAuthRoute = completeAuthRoutes.includes(nextUrl.pathname);
 
     if(isApiAuthRoute) return null;
 
@@ -29,6 +33,12 @@ export const authMiddleware = withAuth((request) => {
 
     if(!isAuthed && !isPublicRoute) {
         return Response.redirect(new URL("/login", nextUrl));
+    }
+
+    if(isAuthed && !isProfileCompeted) {
+        if(!isCompleteAuthRoute) {
+            return Response.redirect(new URL("/complete-profile", nextUrl));
+        }
     }
 
     return null;

@@ -7,6 +7,10 @@ export const authRoutes = [
     "/login"
 ];
 
+export const completeAuthRoutes = [
+    "/complete-profile"
+];
+
 export const apiAuthPrefix = "/api";
 
 export const DEFAULT_LOGIN_REDIRECT = "/dashboard";

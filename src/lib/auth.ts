@@ -38,15 +38,26 @@ export const authOptions: NextAuthOptions = {
                     throw new Error("Incorrect password.");
                 }
 
-                // const area = await db.area.getByUser(dbUser.id);
-
                 return dbUser;
             }
         })
     ],
     callbacks: {
-        async session({ session }) {
-            return session;
+        async jwt({ token}) {
+            if(!token.sub) return token;
+
+            token.userId = token.sub;
+
+            const profile = await db.profile.getByUserId(token.sub);
+
+            if(!profile) return token;
+
+            token.profileId = profile.id;
+            token.picture = profile.avatar;
+            token.name = profile.name;
+            token.surname = profile.surname;
+
+            return token;
         }
     }
 };
