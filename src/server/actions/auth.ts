@@ -5,6 +5,7 @@ import db from "@/server/db";
 import { procedure } from "@/server/utils/procedure";
 import { action, Response } from "@/lib/action";
 import { signupFormSchema } from "@/app/(auth)/_components/signup-form/validation";
+import { z } from "zod";
 
 export const createUser = action(signupFormSchema, async (data) => {
 
@@ -14,17 +15,35 @@ export const createUser = action(signupFormSchema, async (data) => {
 
     const existingUser = await db.user.getByEmail(email);
     if(existingUser) {
-        return new Response().error("USER_ALREADY_EXIST");
+        throw new Error("User with provided email already exist.");
     }
 
     const createUserQuery = db.user.create({
         data: {
             email,
             password: hashedPassword
+        },
+        returns: {
+            id: true,
+            email: true,
         }
     });
 
-    await procedure(createUserQuery).returns();
+    const newUser = await procedure(createUserQuery).returns(
+        z.object({
+            id: z.string(),
+            email: z.string()
+        })
+    );
 
-    return new Response().success("Success");
+    const createAreaQuery = db.area.create({
+        data: {
+            title: "New area",
+            user_id: newUser.id
+        }
+    });
+
+    await procedure(createAreaQuery).returns();
+
+    return new Response().json(newUser.email);
 });

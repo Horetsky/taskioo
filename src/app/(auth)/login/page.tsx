@@ -1,16 +1,9 @@
 import { HaveAnAccount } from "@/app/(auth)/_components/have-an-account";
 import { LoginForm } from "@/app/(auth)/_components/login-form";
-import { cn } from "@/lib/utils";
-import { Suspense } from "react";
 
-export default function AuthForm({ searchParams }: { searchParams: { [key: string]: string | undefined }}) {
+export default function AuthForm() {
     return (
-        <div
-            className={cn(
-                "relative self-center",
-                "flex flex-col gap-y-8"
-            )}
-        >
+        <div className={"relative self-center flex flex-col gap-y-8"}>
             <div>
                 <h1 className={"text-5xl font-black"}>
                     Welcome back 👋
@@ -19,9 +12,7 @@ export default function AuthForm({ searchParams }: { searchParams: { [key: strin
                     Enter your personal information to login the Taskio platform.
                 </p>
             </div>
-            <Suspense key={JSON.stringify(searchParams)}>
-                <LoginForm />
-            </Suspense>
+            <LoginForm />
             <HaveAnAccount actionText={"Sign up"} href={"/signup"}>
                 Don’t have an account?
             </HaveAnAccount>

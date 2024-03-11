@@ -4,7 +4,8 @@ import db from "@/server/db";
 import bcrypt from "bcryptjs";
 export const authOptions: NextAuthOptions = {
     session: {
-        strategy: "jwt"
+        strategy: "jwt",
+        maxAge: 60
     },
     pages: {
         signIn: "/signin",
@@ -24,9 +25,8 @@ export const authOptions: NextAuthOptions = {
 
                 const dbUser = await db.user.getByEmail(email);
 
-
                 if(!dbUser || !dbUser.password) {
-                    throw new Error("USER_IS_NOT_REGISTERED");
+                    throw new Error("User with provided email is already exist.");
                 }
 
                 const passwordMatch = await bcrypt.compare(
@@ -35,14 +35,18 @@ export const authOptions: NextAuthOptions = {
                 );
 
                 if(!passwordMatch) {
-                    throw new Error("INCORRECT_PASSWORD");
+                    throw new Error("Incorrect password.");
                 }
+
+                // const area = await db.area.getByUser(dbUser.id);
 
                 return dbUser;
             }
         })
     ],
     callbacks: {
-
+        async session({ session }) {
+            return session;
+        }
     }
 };
