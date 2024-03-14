@@ -3,12 +3,14 @@
 import { Form } from "@/components/ui/form";
 import { useCompleteProfileForm } from "./useCompleteProfileForm";
 import { FormInput } from "@/components/form/form-input";
-import { FormFileInput } from "@/components/form/form-file-input";
 import { type Session } from "next-auth";
+import { FormFileInput } from "@/components/form/form-file-input";
 
 type Props = {
     session: Session | null;
 }
+
+
 export const CompleteProfileForm = ({ session }: Props) => {
     const {
         form,
@@ -19,7 +21,7 @@ export const CompleteProfileForm = ({ session }: Props) => {
         <Form {...form}>
             <form
                 onSubmit={handleSubmit}
-                className={"grid grid-cols-[2fr_1fr] gap-x-14 p-20"}
+                className={"grid grid-cols-[3fr_1fr] gap-x-14 p-20"}
             >
                 <div className={"flex flex-col gap-y-6"}>
                     <FormInput
@@ -38,10 +40,9 @@ export const CompleteProfileForm = ({ session }: Props) => {
                 <div>
                     <FormFileInput
                         name={"picture"}
-                        label={"Email"}
-                        control={form.control}
+                        label={"Profile Photo"}
                         uploadUrl={"/profile/user228"}
-                        placeholder={"Enter your email"}
+                        control={form.control}
                     />
                 </div>
             </form>

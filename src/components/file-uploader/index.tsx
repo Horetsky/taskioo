@@ -1,57 +1,39 @@
-import { type ReactNode, useState } from "react";
-import { FileInput } from "@/components/ui/file-input";
-import { type InputProps } from "@/components/ui/input";
-import { type PutBlobResult } from "@vercel/blob";
-
-type FileUploaderView = "pending" | "loading" | "success" | "error";
+import { useFileUpload } from "@/components/file-uploader/useFileUpload";
+import { FileInput, type FileInputProps } from "@/components/ui/file-input";
 
 type FileUploaderProps =
-    Omit<InputProps, "onChange"> & {
+    FileInputProps & {
     uploadUrl: string;
-    onChange: (url: string) => void
+    onChange: (url: string) => void;
 }
 
-export const FileUploader = ({ onChange, uploadUrl, ...inputProps }: FileUploaderProps) => {
+export const FileUploader = ({ onChange, uploadUrl }: FileUploaderProps) => {
 
-    const [view, setView] = useState<FileUploaderView>("error");
+    const {
+        file,
+        loading,
+        error,
+        handleUpload,
+        handleRemove,
+    } = useFileUpload(uploadUrl, onChange);
 
-    const handleFileUpload = async (file?: File) => {
 
-        if(!file) return setView("error");
+    function renderFileInputView() {
+        if(loading) return <FileInput.Loading />;
+        if(error) return <FileInput.Error />;
 
-        setView("loading");
+        if(file) return <FileInput.Success src={file} />;
 
-        const fileExt = file.type.split("/").pop();
-        const name = String(Date.now());
-        const generatedName = `${name}.${fileExt}`;
+        return <FileInput.Pending />;
+    }
 
-        const res = await fetch(`/api/blob/upload${uploadUrl}?filename=${generatedName}`, {
-            method: "POST",
-            body: file
-        });
-
-        if(res.ok) {
-            setView("success");
-            const json = await res.json() as PutBlobResult;
-        } else {
-            setView("error");
-        }
-    };
-
-    const fileUploaderView: Record<FileUploaderView, ReactNode> = {
-        pending: <FileInput>
-            <FileInput.Pending {...inputProps} onFileUpload={handleFileUpload} />
-        </FileInput>,
-        loading: <FileInput>
-            <FileInput.Loading />
-        </FileInput>,
-        success: <FileInput>
-            <FileInput.Success src={""} />
-        </FileInput>,
-        error: <FileInput>
-            <FileInput.Error />
+    const fileInputView = renderFileInputView();
+    return (
+        <FileInput
+            onFileUpload={handleUpload}
+            onFileRemove={handleRemove}
+        >
+            { fileInputView }
         </FileInput>
-    };
-
-    return fileUploaderView[view] || fileUploaderView.pending;
+    );
 };

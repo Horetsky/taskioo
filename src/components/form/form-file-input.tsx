@@ -6,17 +6,16 @@ import {
     FormLabel,
     FormMessage
 } from "@/components/ui/form";
-import { type InputProps } from "@/components/ui/input";
 import { type ControllerProps, type FieldPath, type FieldValues } from "react-hook-form";
 import { type ReactNode } from "react";
 import { FileUploader } from "@/components/file-uploader";
+import { type FileInputProps } from "@/components/ui/file-input";
 
 type FormFileInputProps<
     TFieldValues extends FieldValues,
     TName extends FieldPath<TFieldValues>
-> =
-    Omit<ControllerProps<TFieldValues, TName>, "render"> &
-    Omit<InputProps, "onChange"> & {
+> = Omit<ControllerProps<TFieldValues, TName>, "render"> &
+    FileInputProps & {
     uploadUrl: string;
     label?: string | ReactNode;
     description?: string | ReactNode
@@ -32,17 +31,16 @@ export const FormFileInput = <
             control={control}
             defaultValue={defaultValue}
             shouldUnregister={shouldUnregister}
-            render={({ field: { onChange, ...field } }) => (
+            render={({ field }) => (
                 <FormItem>
                     <FormLabel>
                         { label }
                     </FormLabel>
                     <FormControl>
                         <FileUploader
+                            onChange={field.onChange}
                             uploadUrl={uploadUrl}
-                            onChange={onChange}
                             {...props}
-                            {...field}
                         />
                     </FormControl>
                     {

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { type NextRequest, NextResponse } from "next/server";
-import { put } from "@vercel/blob";
+import { del, put } from "@vercel/blob";
 
 type Params = {
     params: {
@@ -29,6 +29,24 @@ export async function POST(req: NextRequest, { params: {userId} }: Params) {
         });
 
         return NextResponse.json(blob);
+
+    } catch (e: any) {
+        return NextResponse.json({ message: e.message });
+    }
+}
+
+export async function DELETE(req: NextRequest) {
+    try {
+        const { searchParams } = new URL(req.url);
+        const url = searchParams.get("url");
+
+        if (!url) {
+            throw new Error("File url is not provided");
+        }
+
+        await del(url);
+
+        return NextResponse.json({ message: "OK" });
 
     } catch (e: any) {
         return NextResponse.json({ message: e.message });

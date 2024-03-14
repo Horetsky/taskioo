@@ -15,10 +15,10 @@ export function useCompleteProfileForm(): UseFormHookReturn<CompleteProfileFormV
     const form = useForm({
         resolver: zodResolver(completeProfileFormSchema),
         defaultValues,
-        mode: "onBlur"
+        mode: "onSubmit"
     });
 
-    const handleSubmit = form.handleSubmit((d) => { console.log(d); });
+    const handleSubmit = form.handleSubmit((d) => {  });
 
     return {
         form,
