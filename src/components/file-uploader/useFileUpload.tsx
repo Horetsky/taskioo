@@ -37,20 +37,23 @@ export function useFileUpload(uploadUrl: string, onChange?: (url: string) => voi
     async function handleRemove(url: string) {
         if(!url) return setError("Url was nor provided");
 
-        setLoading(true);
+        const memoizedFile = file || "";
+        setFile(null);
+        if(onChange) {
+            onChange("");
+        }
 
         const res = await fetch(`/api/blob/upload${uploadUrl}?url=${url}`, {
             method: "DELETE",
         });
 
-        if(res.ok) {
-            setFile(null);
-            setLoading(false);
+        if(!res.ok) {
+            setFile(memoizedFile);
             if(onChange) {
-                onChange("");
+                onChange(memoizedFile);
             }
-        } else {
-            setError("There is an error while deleting an image");
+
+            // TODO: Show the Error Toast Message
         }
     }
 

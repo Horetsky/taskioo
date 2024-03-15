@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { type NextRequest, NextResponse } from "next/server";
+import { type NextRequest } from "next/server";
 import { del, put } from "@vercel/blob";
 
 type Params = {
@@ -28,10 +28,10 @@ export async function POST(req: NextRequest, { params: {userId} }: Params) {
             access: "public"
         });
 
-        return NextResponse.json(blob);
+        return Response.json(blob);
 
     } catch (e: any) {
-        return NextResponse.json({ message: e.message });
+        return Response.json({ message: e.message }, { status: 500 });
     }
 }
 
@@ -46,9 +46,9 @@ export async function DELETE(req: NextRequest) {
 
         await del(url);
 
-        return NextResponse.json({ message: "OK" });
+        return Response.json({});
 
     } catch (e: any) {
-        return NextResponse.json({ message: e.message });
+        return Response.json({ message: e.message }, { status: 500 });
     }
 }

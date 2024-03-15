@@ -133,7 +133,7 @@ const Success = ({ src, className, ...props }: Omit<ImageProps, "alt" | "src"> &
 
             <div
                 className={cn(
-                    "absolute bottom-6 left-0 right-0 translate-y-1/2 opacity-0 z-20",
+                    "absolute bottom-6 left-1/2 -translate-x-1/2 translate-y-1/2 opacity-0 z-20",
                     "text-center text-background hover:underline cursor-pointer",
                     "group-hover:translate-y-0 group-hover:opacity-100 duration-200"
                 )}
