@@ -9,6 +9,7 @@ export function useCompleteProfileForm(): UseFormHookReturn<CompleteProfileFormV
     const defaultValues: CompleteProfileFormValue = {
         name: "",
         surname: "",
+        username: "",
         picture: ""
     };
 
@@ -18,7 +19,7 @@ export function useCompleteProfileForm(): UseFormHookReturn<CompleteProfileFormV
         mode: "onSubmit"
     });
 
-    const handleSubmit = form.handleSubmit((d) => {  });
+    const handleSubmit = form.handleSubmit(() => {});
 
     return {
         form,

@@ -12,6 +12,7 @@ CREATE TABLE area (
     id uuid DEFAULT gen_random_uuid(),
     title varchar(100) NOT NULL,
     user_id uuid NOT NULL,
+    username VARCHAR(100) NOT NULL UNIQUE,
 
     CONSTRAINT PK_area_id PRIMARY KEY (id),
     CONSTRAINT FK_area_user FOREIGN KEY (user_id) REFERENCES "user"(id) ON DELETE CASCADE
@@ -21,7 +22,7 @@ CREATE TABLE profile (
     id uuid DEFAULT gen_random_uuid(),
     name varchar(100) NOT NULL,
     surname varchar(100) NOT NULL,
-    avatar varchar(255),
+    picture varchar(255),
     user_id uuid NOT NULL,
 
     CONSTRAINT PK_profile_id PRIMARY KEY (id),

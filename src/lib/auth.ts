@@ -18,7 +18,7 @@ export const authOptions: NextAuthOptions = {
                 email: { label: "Username", type: "text", placeholder: "jsmith" },
                 password: { label: "Password", type: "password" }
             },
-            async authorize(credentials, req) {
+            async authorize(credentials) {
                 if(!credentials) return null;
 
                 const { email, password } = credentials;
@@ -41,23 +41,5 @@ export const authOptions: NextAuthOptions = {
                 return dbUser;
             }
         })
-    ],
-    callbacks: {
-        async jwt({ token}) {
-            if(!token.sub) return token;
-
-            token.userId = token.sub;
-
-            const profile = await db.profile.getByUserId(token.sub);
-
-            if(!profile) return token;
-
-            token.profileId = profile.id;
-            token.picture = profile.avatar;
-            token.name = profile.name;
-            token.surname = profile.surname;
-
-            return token;
-        }
-    }
+    ]
 };

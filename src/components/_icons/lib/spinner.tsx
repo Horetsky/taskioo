@@ -17,6 +17,7 @@ const spinnerVariants = cva(
                 secondary: "",
                 ghost: "",
                 link: "",
+                dark: "border-t-white"
             }
         },
         defaultVariants: {

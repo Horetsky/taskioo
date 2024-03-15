@@ -24,22 +24,22 @@ export const authMiddleware = withAuth((request) => {
 
     if(isApiAuthRoute) return null;
 
-    // if(isAuthRoute) {
-    //     if(isAuthed) {
-    //         return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
-    //     }
-    //     return null;
-    // }
-    //
-    // if(!isAuthed && !isPublicRoute) {
-    //     return Response.redirect(new URL("/login", nextUrl));
-    // }
-    //
-    // if(isAuthed && !isProfileCompeted) {
-    //     if(!isCompleteAuthRoute) {
-    //         return Response.redirect(new URL("/complete-profile", nextUrl));
-    //     }
-    // }
+    if(isAuthRoute) {
+        if(isAuthed) {
+            return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+        }
+        return null;
+    }
+
+    if(!isAuthed && !isPublicRoute) {
+        return Response.redirect(new URL("/login", nextUrl));
+    }
+
+    if(isAuthed && !isProfileCompeted) {
+        if(!isCompleteAuthRoute) {
+            return Response.redirect(new URL("/complete-profile", nextUrl));
+        }
+    }
 
     return null;
 }, {
