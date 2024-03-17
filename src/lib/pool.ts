@@ -6,7 +6,7 @@ const pool = new Pool({
     connectionString
 });
 
-export const postgres = <Result extends QueryResultRow>(
+export const pg = <Result extends QueryResultRow>(
     text: string,
     params: unknown[] = []
 ) => {

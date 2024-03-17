@@ -1,22 +1,23 @@
 import { type NextAuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import db from "@/server/db";
+import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
+import db from "@/server/db";
+
 export const authOptions: NextAuthOptions = {
     session: {
         strategy: "jwt",
-        maxAge: 60
+        maxAge: 24 * 60 * 60, // 24 hours,
     },
     pages: {
-        signIn: "/signin",
-        newUser: "/signup"
+        signIn: "/login"
     },
+    secret: process.env.NEXTAUTH_SECRET,
     providers: [
-        CredentialsProvider({
-            name: "Credentials",
+        Credentials({
+            name: "credentials",
             credentials: {
                 email: { label: "Username", type: "text", placeholder: "jsmith" },
-                password: { label: "Password", type: "password" }
+                password: { label: "Password", type: "password" },
             },
             async authorize(credentials) {
                 if(!credentials) return null;
@@ -41,5 +42,21 @@ export const authOptions: NextAuthOptions = {
                 return dbUser;
             }
         })
-    ]
+    ],
+    callbacks: {
+
+        jwt({ token }) {
+
+            console.log("jwwwtwtwttwt");
+
+            return token;
+        },
+
+        session({ session }) {
+
+            console.log("sesssioao");
+
+            return session;
+        }
+    }
 };
