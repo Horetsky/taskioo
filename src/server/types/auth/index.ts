@@ -1,6 +1,0 @@
-export type AuthServerError =
-    "INCORRECT_PASSWORD" |
-    "USER_ALREADY_EXIST" |
-    "USER_IS_NOT_REGISTERED" |
-    "INTERNAL_SERVER_ERROR" |
-    "USER_IS_BLOCKED"

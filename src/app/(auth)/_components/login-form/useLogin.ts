@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import type { AuthServerError } from "@/server/types";
 import { type LoginFormValues } from "./validation";
 
 export function useLogin() {
@@ -22,7 +21,7 @@ export function useLogin() {
 
         if(!res?.ok) {
             setLoading(false);
-            setError(res?.error as AuthServerError);
+            setError(res?.error as string);
         }
         
         return router.refresh();

@@ -1,4 +1,4 @@
-import { type NextAuthOptions } from "next-auth";
+import { getServerSession, type NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import db from "@/server/db";
@@ -45,18 +45,36 @@ export const authOptions: NextAuthOptions = {
     ],
     callbacks: {
 
-        jwt({ token }) {
+        async jwt({ token, user }) {
+            if(!token.sub) return token;
 
-            console.log("jwwwtwtwttwt");
+            token.userId = token.sub;
+
+            const profile = await db.profile.getByUserId(token.sub);
+
+            if(!profile) return token;
+
+            token.profileId = profile.id;
+            token.picture = profile.picture;
+            token.name = profile.name;
+            token.surname = profile.surname;
 
             return token;
         },
 
-        session({ session }) {
+        session({ session, token }) {
 
-            console.log("sesssioao");
+            if(token) {
+                session.user.userId = token.userId;
+                session.user.profileId = token.profileId;
+                session.user.picture = token.picture;
+                session.user.name = token.name;
+                session.user.surname = token.surname;
+            }
 
             return session;
         }
     }
 };
+
+export const getSession = () => getServerSession(authOptions);

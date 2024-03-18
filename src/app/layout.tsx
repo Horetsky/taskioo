@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { type PropsWithChildren } from "react";
 import { fonts } from "@/fonts.config";
-import { getServerSession } from "next-auth";
 import { Providers } from "@/app/providers";
 import "./globals.css";
+import { getSession } from "@/server/auth";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -14,7 +14,7 @@ export default async function RootLayout({
     children
 }: Readonly<PropsWithChildren>) {
 
-    const session = await getServerSession();
+    const session = await getSession();
 
     return (
         <html lang="en">

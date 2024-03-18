@@ -15,7 +15,7 @@ export const authMiddleware = withAuth((request) => {
     } = request;
 
     const isAuthed = !!token;
-    const isProfileCompeted = !!token?.profile;
+    const isProfileCompeted = !!token?.profileId;
 
     const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
     const isPublicRoute = publicRoutes.includes(nextUrl.pathname);

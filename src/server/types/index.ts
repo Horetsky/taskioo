@@ -49,5 +49,3 @@ export type Methods<T> = {
     update: (options: Options<T>) => unknown;
     delete: (options: Options<T>) => unknown;
 }
-
-export * from "./auth";

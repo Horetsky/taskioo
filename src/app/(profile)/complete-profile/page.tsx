@@ -1,6 +1,8 @@
 import { CompleteProfileForm } from "@/app/(profile)/complete-profile/_components/complete-profile-form";
+import { getServerSession } from "next-auth";
 
 export default async function Page() {
+
     return (
         <>
             <div className={"text-background"}>
