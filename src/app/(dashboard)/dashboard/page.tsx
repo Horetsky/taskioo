@@ -1,7 +1,7 @@
-import { getServerSession } from "next-auth";
+import { getSession } from "@/server/auth";
 
 const Page = async () => {
-    const session = await getServerSession();
+    const session = await getSession();
 
     return (
         <div>

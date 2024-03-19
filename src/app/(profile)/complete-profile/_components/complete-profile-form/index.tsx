@@ -6,8 +6,12 @@ import { FormInput } from "@/components/form/form-input";
 import { FormFileInput } from "@/components/form/form-file-input";
 import { Button } from "@/components/ui/button";
 import { FormAlert } from "@/components/form/form-alert";
+import { type Session } from "next-auth";
 
-export const CompleteProfileForm = () => {
+type Props = {
+    session: Session | null;
+}
+export const CompleteProfileForm = ({ session }: Props) => {
     const {
         form,
         loading,
@@ -15,6 +19,8 @@ export const CompleteProfileForm = () => {
         message,
         handleSubmit
     } = useCompleteProfileForm();
+
+    const uploadUrl = `/user/${session?.user.userId}/profile`;
 
     return (
         <Form {...form}>
@@ -61,7 +67,7 @@ export const CompleteProfileForm = () => {
                     <FormFileInput
                         name={"picture"}
                         label={"Profile Photo"}
-                        uploadUrl={"/profile/user228"}
+                        uploadUrl={uploadUrl}
                         control={form.control}
                     />
                 </div>

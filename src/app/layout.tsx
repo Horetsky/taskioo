@@ -4,6 +4,7 @@ import { fonts } from "@/fonts.config";
 import { Providers } from "@/app/providers";
 import "./globals.css";
 import { getSession } from "@/server/auth";
+import { Toaster } from "@/components/toaster";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -21,6 +22,7 @@ export default async function RootLayout({
             <body className={fonts}>
                 <Providers session={session}>
                     { children }
+                    <Toaster />
                 </Providers>
             </body>
         </html>

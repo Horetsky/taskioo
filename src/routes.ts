@@ -7,7 +7,7 @@ export const authRoutes = [
     "/login"
 ];
 
-export const completeAuthRoutes = [
+export const completeProfileRoute = [
     "/complete-profile"
 ];
 

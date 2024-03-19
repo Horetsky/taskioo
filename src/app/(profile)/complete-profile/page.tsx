@@ -1,7 +1,9 @@
 import { CompleteProfileForm } from "@/app/(profile)/complete-profile/_components/complete-profile-form";
-import { getServerSession } from "next-auth";
+import { getSession } from "@/server/auth";
 
 export default async function Page() {
+
+    const session = await getSession();
 
     return (
         <>
@@ -14,7 +16,7 @@ export default async function Page() {
                 </p>
             </div>
             <div className={"bg-background shadow-lg rounded-lg mt-9"}>
-                <CompleteProfileForm />
+                <CompleteProfileForm session={session} />
             </div>
         </>
     );

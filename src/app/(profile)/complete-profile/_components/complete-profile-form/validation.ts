@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { requiredString } from "@/lib/zod";
-import db from "@/server/db";
 
 export const completeProfileFormSchema = z.object({
     name: requiredString("Name is required"),

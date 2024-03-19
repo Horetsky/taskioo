@@ -3,8 +3,27 @@ import { type UseFormHookReturn } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { completeProfileFormSchema,  type CompleteProfileFormValue } from "./validation";
+import { useAction } from "@/lib/action/hooks";
+import { completeProfile } from "@/server/actions/profile";
+import { useToaster } from "@/components/toaster";
+import { useRouter } from "next/navigation";
 
 export function useCompleteProfileForm(): UseFormHookReturn<CompleteProfileFormValue> {
+
+    const toast = useToaster();
+    const router = useRouter();
+
+    const {
+        execute,
+        loading
+    } = useAction(completeProfile, {
+        onError(res) {
+            toast.error(res.message);
+        },
+        onSuccess() {
+            router.replace("/dashboard");
+        }
+    });
 
     const defaultValues: CompleteProfileFormValue = {
         name: "",
@@ -19,11 +38,11 @@ export function useCompleteProfileForm(): UseFormHookReturn<CompleteProfileFormV
         mode: "onSubmit"
     });
 
-    const handleSubmit = form.handleSubmit(() => {});
+    const handleSubmit = form.handleSubmit(execute);
 
     return {
         form,
         handleSubmit,
-        loading: false
+        loading
     };
 }

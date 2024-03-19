@@ -1,5 +1,5 @@
 import { type ZodSchema } from "zod";
-import { type NoId, type Options, type SelectOptions } from "@/server/types";
+import { type Options, type SelectOptions } from "@/server/types";
 import {
     deleteQuery,
     includeQuery,

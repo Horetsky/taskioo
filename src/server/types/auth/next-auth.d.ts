@@ -8,7 +8,7 @@ type SessionUser = {
     profileId?: string;
     name?: string | null;
     surname?: string;
-    picture?: string | null;
+    image?: string | null;
 }
 
 declare module "next-auth" {

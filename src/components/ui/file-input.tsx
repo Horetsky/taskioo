@@ -9,10 +9,10 @@ import Image, { type ImageProps } from "next/image";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const fileInputVariant = cva(
-    "group relative rounded-md overflow-hidden", {
+    "group relative rounded-md overflow-hidden duration-200", {
         variants: {
             variant: {
-                default: "border border-dashed border-border bg-background",
+                default: "border border-dashed border-border bg-background hover:border-primary",
                 round: "rounded-full border border-dashed border-border bg-background"
             },
             size: {

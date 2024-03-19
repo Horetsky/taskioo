@@ -45,7 +45,7 @@ export const authOptions: NextAuthOptions = {
     ],
     callbacks: {
 
-        async jwt({ token, user }) {
+        async jwt({ token }) {
             if(!token.sub) return token;
 
             token.userId = token.sub;
@@ -55,7 +55,7 @@ export const authOptions: NextAuthOptions = {
             if(!profile) return token;
 
             token.profileId = profile.id;
-            token.picture = profile.picture;
+            token.image = profile.picture;
             token.name = profile.name;
             token.surname = profile.surname;
 
@@ -64,10 +64,10 @@ export const authOptions: NextAuthOptions = {
 
         session({ session, token }) {
 
-            if(token) {
+            if(token && session.user) {
                 session.user.userId = token.userId;
                 session.user.profileId = token.profileId;
-                session.user.picture = token.picture;
+                session.user.image = token.image;
                 session.user.name = token.name;
                 session.user.surname = token.surname;
             }

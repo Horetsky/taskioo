@@ -22,7 +22,7 @@ export async function POST(req: NextRequest, { params: {userId} }: Params) {
             throw new Error("Filename is not provided");
         }
 
-        const _filePath = `profile/${userId}/picture/${filename}`;
+        const _filePath = `${userId}/profile/picture/${filename}`;
 
         const blob = await put(_filePath, req.body, {
             access: "public"
