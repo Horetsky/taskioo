@@ -19,7 +19,7 @@ const config = {
         },
         fontFamily: {
             lato: "var(--font-lato)",
-            oswald: "var(--font-oswald)"
+            poppins: "var(--font-poppins)"
         },
         extend: {
 
@@ -33,6 +33,7 @@ const config = {
                 ring: "hsl(var(--ring))",
                 background: "hsl(var(--background))",
                 foreground: "hsl(var(--foreground))",
+                paper: "hsl(var(--paper))",
                 primary: {
                     DEFAULT: "hsl(var(--primary))",
                     foreground: "hsl(var(--primary-foreground))",

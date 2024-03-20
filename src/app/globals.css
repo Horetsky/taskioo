@@ -5,6 +5,7 @@
 
 @layer base {
   :root {
+    --paper: 72 33.33% 97.06%;
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
     --card: 0 0% 100%;
@@ -18,8 +19,8 @@
     --secondary: 60 4.8% 95.9%;
     --secondary-foreground: 24 9.8% 10%;
     --muted: 60 4.8% 95.9%;
-    --muted-foreground: 249.23, 5.63%, 45.29%;
-    --accent: 60 4.8% 95.9%;
+    --muted-foreground: 249.23 5.63% 45.29%;
+    --accent: 72.93 81.69% 72.16%;
     --accent-foreground: 24 9.8% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 60 9.1% 97.8%;
@@ -61,5 +62,11 @@ body, main {
 @layer base {
   * {
     @apply border-border;
+  }
+}
+
+@layer utilities {
+  s-full {
+    @apply w-full h-full
   }
 }

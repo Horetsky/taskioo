@@ -7,11 +7,13 @@ import { useAction } from "@/lib/action/hooks";
 import { completeProfile } from "@/server/actions/profile";
 import { useToaster } from "@/components/toaster";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export function useCompleteProfileForm(): UseFormHookReturn<CompleteProfileFormValue> {
 
     const toast = useToaster();
     const router = useRouter();
+    const { update: updateSession } = useSession();
 
     const {
         execute,
@@ -20,7 +22,8 @@ export function useCompleteProfileForm(): UseFormHookReturn<CompleteProfileFormV
         onError(res) {
             toast.error(res.message);
         },
-        onSuccess() {
+        async onSuccess() {
+            await updateSession();
             router.replace("/dashboard");
         }
     });

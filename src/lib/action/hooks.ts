@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { type BaseSyntheticEvent, useState } from "react";
 
 import {
     type ActionReturn,
@@ -14,12 +14,18 @@ export function useAction<Input>(action: ActionReturn<Input>, callbacks?: UseAct
     const [error, setError] = useState<string | null>(null);
     const [result, setResult] = useState<SuccessResponse | null>(null);
 
-    async function execute(data: Input) {
+    async function execute(data: Input, event?: BaseSyntheticEvent) {
         setLoading(true);
 
         if(callbacks?.onExecute) callbacks.onExecute();
 
         const response = await action(data);
+
+        if(!response) {
+            setError("Internal Server Error.");
+            if(callbacks?.onError) callbacks.onError({ type: "error", message: "Internal Server Error."});
+            return setLoading(false);
+        }
 
         if(response.type === "error") {
             setError(response.message);
@@ -33,7 +39,7 @@ export function useAction<Input>(action: ActionReturn<Input>, callbacks?: UseAct
 
         if(callbacks?.onSettled) callbacks.onSettled(response);
 
-        setLoading(false);
+        return setLoading(false);
     }
 
     return { execute, result, loading, error };
