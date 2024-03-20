@@ -36,9 +36,9 @@ export function useCompleteProfileForm(): UseFormHookReturn<CompleteProfileFormV
     };
 
     const form = useForm({
-        resolver: zodResolver(completeProfileFormSchema),
         defaultValues,
-        mode: "onSubmit"
+        mode: "onSubmit",
+        resolver: zodResolver(completeProfileFormSchema)
     });
 
     const handleSubmit = form.handleSubmit(execute);

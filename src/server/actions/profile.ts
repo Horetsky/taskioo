@@ -25,5 +25,5 @@ export const completeProfile = action(completeProfileFormSchema, async (data) =>
 
     await procedure(completeProfileQuery).returns();
 
-    return new Response().success("Success");
+    return new Response().success();
 });

@@ -5,10 +5,12 @@ import { useAction } from "@/lib/action/hooks";
 import { createUser } from "@/server/actions/auth";
 import { useRouter } from "next/navigation";
 import { signupFormSchema, type SignupFormValues } from "./validation";
+import { useToaster } from "@/components/toaster";
 
 export function useSignupForm(): UseFormHookReturn<SignupFormValues> {
 
     const router = useRouter();
+    const toast = useToaster();
 
     const {
         execute,
@@ -16,6 +18,7 @@ export function useSignupForm(): UseFormHookReturn<SignupFormValues> {
         error,
     } = useAction(createUser, {
         onSuccess() {
+            toast.success({ title: "Log in to your account.", description: "Your account has been created successfully."});
             router.replace("/login");
         }
     });

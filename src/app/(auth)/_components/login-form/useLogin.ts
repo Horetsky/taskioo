@@ -24,7 +24,7 @@ export function useLogin() {
             setError(res?.error as string);
         }
         
-        return router.refresh();
+        return router.replace("/dashboard");
     }
 
     return {

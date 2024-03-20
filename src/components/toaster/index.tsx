@@ -39,11 +39,19 @@ export function useToaster() {
 
     class Toast {
 
-        error(props: Omit<ToasterToast, "id"> | string): void {
+        error(props: Omit<ToasterToast, "id"> | string) {
             if(typeof props === "string") {
                 toast({ variant: "destructive", title: "Uh oh! Something went wrong.", description: props});
             } else {
                 toast({ variant: "destructive", ...props});
+            }
+        }
+
+        success(props: Omit<ToasterToast, "id"> | string) {
+            if(typeof props === "string") {
+                toast({ description: props});
+            } else {
+                toast(props);
             }
         }
 

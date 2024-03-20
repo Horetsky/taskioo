@@ -22,7 +22,7 @@ export const HaveAnAccount = ({
             {...props}
         >
             { children }
-            <Link className={"text-black ml-1.5"} href={href}>
+            <Link className={"text-black ml-1.5 hover:underline"} href={href}>
                 { actionText }
             </Link>
         </div>
