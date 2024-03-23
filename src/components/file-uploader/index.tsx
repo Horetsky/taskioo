@@ -1,13 +1,15 @@
 import { useFileUpload } from "@/components/file-uploader/useFileUpload";
 import { FileInput, type FileInputProps } from "@/components/ui/file-input";
+import { type ControllerFieldState } from "react-hook-form";
 
 type FileUploaderProps =
     FileInputProps & {
     uploadUrl: string;
+    fieldState: ControllerFieldState;
     onChange: (url: string) => void;
 }
 
-export const FileUploader = ({ onChange, uploadUrl }: FileUploaderProps) => {
+export const FileUploader = ({ uploadUrl, fieldState, onChange }: FileUploaderProps) => {
 
     const {
         file,
@@ -32,6 +34,7 @@ export const FileUploader = ({ onChange, uploadUrl }: FileUploaderProps) => {
         <FileInput
             onFileUpload={handleUpload}
             onFileRemove={handleRemove}
+            fieldState={fieldState}
         >
             { fileInputView }
         </FileInput>

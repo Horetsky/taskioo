@@ -1,5 +1,5 @@
 import { type ZodSchema } from "zod";
-import { type Options, type SelectOptions } from "@/server/types";
+import { type Options, type SelectOptions } from "../types";
 import {
     deleteQuery,
     includeQuery,
@@ -9,8 +9,8 @@ import {
     selectQuery,
     updateQuery,
     whereQuery
-} from "@/server/utils/queryTemplates";
-import { createQueryStack } from "@/server/utils/queryStack";
+} from "./template";
+import { createQueryStack } from "./queryStack";
 
 type Method<T> = (options: Options<T>) => string;
 

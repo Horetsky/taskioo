@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { Adapter } from "@/server/db/adapter";
-import { procedure } from "@/server/utils/procedure";
+import { procedure } from "@/server/procedure";
 
 export namespace ProfileModel {
     export const profileSchema = z.object({

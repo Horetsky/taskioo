@@ -1,4 +1,4 @@
-import type { Options } from "@/server/types";
+import type { Options } from "../types";
 
 function selectQuery<Schema>({ select }: Options<Schema>, table: string, query: string) {
     if(!select) return `SELECT * FROM "${table}"`;

@@ -3,9 +3,9 @@ import {
     type CreateOptions,
     type Methods,
     type SelectOptions
-} from "@/server/types";
+} from "./types";
 import { type ZodSchema } from "zod";
-import { Query } from "@/server/utils/query";
+import { Query } from "./query";
 
 export class Adapter<T> implements Methods<T>{
 

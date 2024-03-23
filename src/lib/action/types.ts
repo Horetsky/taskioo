@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export type ActionResponseType = "error" | "success";
+import { type Session } from "next-auth";
+
 export type SuccessResponse = {
     type: "success";
     data?: unknown;
@@ -23,9 +24,14 @@ export class Response {
     }
 }
 
+export type ActionContext = {
+    session: Session | null;
+    headers: Readonly<Headers>;
+}
+
 export type ActionReturn<Input> = (data: Input) => Promise<ActionResponse>
 export type ActionResponse = SuccessResponse | ErrorResponse;
-export type Callback<Input> = (data: Input) => Promise<ActionResponse>;
+export type Callback<Input> = (data: Input, ctx: ActionContext) => Promise<ActionResponse>;
 export type UseActionCallbacks = {
     onExecute?: () => void;
     onSuccess?: (response: SuccessResponse) => void;

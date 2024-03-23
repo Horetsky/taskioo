@@ -7,6 +7,7 @@ import { type ChangeEvent, type ComponentProps, createContext, type PropsWithChi
 import { Spinner } from "@/components/_icons";
 import Image, { type ImageProps } from "next/image";
 import { cva, type VariantProps } from "class-variance-authority";
+import type { ControllerFieldState } from "react-hook-form";
 
 const fileInputVariant = cva(
     "group relative rounded-md overflow-hidden duration-200", {
@@ -14,6 +15,9 @@ const fileInputVariant = cva(
             variant: {
                 default: "border border-dashed border-border bg-background hover:border-primary",
                 round: "rounded-full border border-dashed border-border bg-background"
+            },
+            invalid: {
+                true: "border-destructive hover:border-destructive"
             },
             size: {
                 default: "w-full aspect-square "
@@ -34,16 +38,17 @@ export type FileInputProps =
 type Props = {
     onFileUpload: (file?: File) => void;
     onFileRemove: (url: string) => void;
+    fieldState: ControllerFieldState;
 }
 
 const FileInputContext = createContext<FileInputProps & Props | null>(null);
-const FileInput = ({ children, className, variant, ...props  }: FileInputProps & Props) => {
+const FileInput = ({ children, className, variant, fieldState, ...props  }: FileInputProps & Props) => {
 
     return (
-        <FileInputContext.Provider value={{ className, variant, ...props}}>
+        <FileInputContext.Provider value={{ className, variant, fieldState, ...props}}>
             <div
                 className={cn(
-                    fileInputVariant({variant, className})
+                    fileInputVariant({variant, invalid: fieldState.invalid, className}), "text"
                 )}
                 {...props}
             >

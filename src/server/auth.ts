@@ -27,7 +27,7 @@ export const authOptions: NextAuthOptions = {
                 const dbUser = await db.user.getByEmail(email);
 
                 if(!dbUser || !dbUser.password) {
-                    throw new Error("User with provided email is already exist.");
+                    throw new Error("User with provided email does not exist.");
                 }
 
                 const passwordMatch = await bcrypt.compare(
@@ -58,6 +58,7 @@ export const authOptions: NextAuthOptions = {
             token.image = profile.picture;
             token.name = profile.name;
             token.surname = profile.surname;
+            token.username = profile.username;
 
             return token;
         },
@@ -70,6 +71,7 @@ export const authOptions: NextAuthOptions = {
                 session.user.image = token.image;
                 session.user.name = token.name;
                 session.user.surname = token.surname;
+                session.user.username = token.username;
             }
 
             return session;

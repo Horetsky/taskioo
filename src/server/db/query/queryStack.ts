@@ -1,4 +1,4 @@
-import { type Options } from "@/server/types";
+import { type Options } from "../types";
 
 type QueryFunc<T> = (object: Options<T>, table: string, query: string) => string;
 function createQueryStack<T>(

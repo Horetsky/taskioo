@@ -31,7 +31,7 @@ export const FormFileInput = <
             control={control}
             defaultValue={defaultValue}
             shouldUnregister={shouldUnregister}
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
                 <FormItem>
                     <FormLabel>
                         { label }
@@ -40,6 +40,7 @@ export const FormFileInput = <
                         <FileUploader
                             onChange={field.onChange}
                             uploadUrl={uploadUrl}
+                            fieldState={fieldState}
                             {...props}
                         />
                     </FormControl>

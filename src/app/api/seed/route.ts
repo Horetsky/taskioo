@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import db from "@/server/db";
-import { procedure } from "@/server/utils/procedure";
+import { procedure } from "@/server/procedure";
 
 export async function POST(req: NextRequest) {
     try {

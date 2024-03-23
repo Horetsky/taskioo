@@ -2,7 +2,7 @@
 
 import bcrypt from "bcryptjs";
 import db from "@/server/db";
-import { procedure } from "@/server/utils/procedure";
+import { procedure } from "@/server/procedure";
 import { action, Response } from "@/lib/action";
 import { signupFormSchema } from "@/app/(auth)/_components/signup-form/validation";
 import { z } from "zod";
@@ -45,5 +45,5 @@ export const createUser = action(signupFormSchema, async (data) => {
 
     await procedure(createAreaQuery).returns();
 
-    return new Response().json(newUser.email);
+    return Response.json(newUser.email);
 });
