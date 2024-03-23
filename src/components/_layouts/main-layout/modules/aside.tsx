@@ -1,45 +1,61 @@
-import { type ComponentProps } from "react";
+"use client";
+
 import { cn } from "@/lib/utils";
-import Image from "next/image";
+import { type ComponentProps, useState } from "react";
 import { type Session } from "next-auth";
-import Link from "next/link";
-import { type IconType } from "react-icons";
-import { LuCalendar, LuLayoutDashboard } from "react-icons/lu";
+import Image from "next/image";
+import type { IconType } from "react-icons";
+import { LuLayoutDashboard } from "react-icons/lu";
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { TbMessageCircle } from "react-icons/tb";
 import { HiOutlineUserGroup } from "react-icons/hi2";
+import { TbMessageCircle } from "react-icons/tb";
+import Link from "next/link";
 
-type Block =
-    ComponentProps<"div"> & {
-    session: Session
-};
-type SidebarProps =
-    Omit<Block, "children">
+type AsideProps =
+    ComponentProps<"aside"> & {
+    session: Session;
+}
 
-export const Sidebar = ({ className, session, ...props }: SidebarProps) => {
+type Block = {
+    session: Session;
+}
+
+export const Aside = ({ children, className, session, ...props }: AsideProps) => {
+
+    const [open, setOpen] = useState(true);
+
+    const handleOpen = () => setOpen(state => !state);
+
     return (
-        <div
+        <aside
             className={cn(
-                "flex flex-col gap-y-16",
+                "bg-paper overflow-hidden shrink-0 transition-all duration-300",
+                open ? "basis-72" : "basis-20",
                 className
             )}
+            // onClick={handleOpen}
             {...props}
         >
-            <Profile session={session} />
-            <Navigation session={session} />
-        </div>
+            <div className={"md:px-7 md:py-11 h-full"}>
+                <div className={"flex flex-col gap-y-28 h-full"}>
+                    <Profile session={session} />
+                    <Navigation session={session} />
+
+                    <div className={"mt-auto"}>
+                        some action button
+                    </div>
+                </div>
+            </div>
+        </aside>
     );
 };
 
-const Profile = ({ className, session, ...props }: Block) => {
+const Profile = ({ session }: Block) => {
     return (
         <div
             className={cn(
-                "grid grid-cols-[38px_1fr] grid-rows-[38px] items-center gap-x-2",
-                "",
-                className
+                "grid grid-cols-[38px_1fr] grid-rows-[38px] items-center gap-x-2"
             )}
-            {...props}
         >
             <div className={"relative rounded-full overflow-hidden size-full"}>
                 <Image
@@ -49,11 +65,16 @@ const Profile = ({ className, session, ...props }: Block) => {
                     alt={"user image"}
                 />
             </div>
-            <div className={"font-poppins"}>
-                <div className={"font-medium leading-none"}>
+            <div>
+                <div className={"font-medium leading-none mb-0"}>
                     { session.user.name } { session.user.surname }
                 </div>
-                <div className={"leading-none text-sm text-muted-foreground"}>
+                <div
+                    className={cn(
+                        "leading-none text-sm text-muted-foreground",
+                        "cursor-pointer hover:text-primary duration-100"
+                    )}
+                >
                     { session.user.email }
                 </div>
             </div>
@@ -61,18 +82,18 @@ const Profile = ({ className, session, ...props }: Block) => {
     );
 };
 
-const Navigation = ({ session, ...props }: Block) => {
+const Navigation = ({ session }: Block) => {
 
     const navigation: { label: string; href: string; Icon: IconType; isActive: boolean }[] = [
         { label: "Dashboard", href: "/dashboard", Icon: LuLayoutDashboard, isActive: true },
         { label: "Notification", href: "/dashboard", Icon: IoMdNotificationsOutline, isActive: false },
-        { label: "Calendar", href: "/dashboard", Icon: LuCalendar, isActive: false },
+        // { label: "Calendar", href: "/dashboard", Icon: LuCalendar, isActive: false },
         { label: "Teams", href: "/dashboard", Icon: HiOutlineUserGroup, isActive: false },
         { label: "Inbox", href: "/dashboard", Icon: TbMessageCircle, isActive: false },
     ];
 
     return (
-        <nav {...props}>
+        <nav>
             <ul className={"flex flex-col gap-y-2"}>
                 {
                     navigation.map(({ href, label, isActive, Icon }) => (
@@ -100,7 +121,7 @@ const Navigation = ({ session, ...props }: Block) => {
 
                             {
                                 isActive &&
-                                    <div className={"absolute top-0 bottom-0 w-11 -translate-x-2 bg-black rounded-xl"} />
+                                <div className={"absolute top-0 bottom-0 w-11 -translate-x-2 bg-black rounded-xl"} />
                             }
                         </li>
                     ))

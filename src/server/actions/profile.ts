@@ -3,7 +3,7 @@
 import { action, Response } from "@/lib/action";
 import {
     completeProfileFormSchema
-} from "@/app/(profile)/complete-profile/_components/complete-profile-form/validation";
+} from "@/app/(profile)/(complete)/complete-profile/_components/complete-profile-form/validation";
 import { getSession } from "@/server/auth";
 import db from "@/server/db";
 import { procedure } from "@/server/procedure";

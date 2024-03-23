@@ -45,5 +45,5 @@ export const createUser = action(signupFormSchema, async (data) => {
 
     await procedure(createAreaQuery).returns();
 
-    return Response.json(newUser.email);
+    return Response.json(data);
 });

@@ -4,7 +4,7 @@ import {
     apiAuthPrefix,
     publicRoutes,
     authRoutes,
-    completeProfileRoute
+    completeProfileRoute, indexRoute
 } from "@/routes";
 
 export const authMiddleware = withAuth((request) => {
@@ -19,6 +19,7 @@ export const authMiddleware = withAuth((request) => {
 
     const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
     const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+    const isIndexRoute = nextUrl.pathname === indexRoute;
     const isAuthRoute = authRoutes.includes(nextUrl.pathname);
     const isCompleteProfileRoute = completeProfileRoute.includes(nextUrl.pathname);
 
@@ -27,6 +28,13 @@ export const authMiddleware = withAuth((request) => {
      * from being triggered on API routes
      */
     if(isApiAuthRoute) return null;
+    /**
+     * The code below is responsible for redirecting the user
+     * from index page
+     */
+    if(isIndexRoute) {
+        return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+    }
     /**
      * The code below is responsible for redirecting the user
      * depending on whether user is logged in or not

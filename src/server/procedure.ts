@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import type { ZodSchema } from "zod";
 import { pg } from "@/lib/pool";
 
-type Returns<Output = any> = (schema?: ZodSchema<Output>) => Promise<Output>
-export type Procedure = (query: string) => { returns: Returns }
+// type Returns<Output = any> = (schema?: ZodSchema<Output>) => Promise<Output>
+// export type Procedure = (query: string) => { returns: Returns }
 
 export function procedure(query: string) {
     async function returns<Output = any>(schema?: ZodSchema<Output>): Promise<Output> {

@@ -12,5 +12,6 @@ export const completeProfileRoute = [
 ];
 
 export const apiAuthPrefix = "/api";
+export const indexRoute = "/";
 
 export const DEFAULT_LOGIN_REDIRECT = "/dashboard";
