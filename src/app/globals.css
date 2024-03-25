@@ -24,8 +24,8 @@
     --accent-foreground: 24 9.8% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 60 9.1% 97.8%;
-    --border: 236, 16.85%, 82.55%;
-    --input: 247.5, 9.64%, 67.45%;
+    --border: 236 16.85% 82.55%;
+    --input: 247.5 9.64% 67.45%;
     --ring: 24.6 95% 53.1%;
     --radius: 0.5rem;
   }
@@ -56,7 +56,7 @@
 
 
 body, main {
-  font-family: var(--font-lato)
+  font-family: var(--font-poppins)
 }
 
 @layer base {
@@ -66,7 +66,7 @@ body, main {
 }
 
 @layer utilities {
-  s-full {
-    @apply w-full h-full
+  .container {
+    @apply px-14
   }
 }

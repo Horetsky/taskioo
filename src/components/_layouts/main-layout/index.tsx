@@ -13,15 +13,15 @@ const MainLayout = ({ children, className, session, ...props }: MainLayoutProps)
     return (
         <main
             className={cn(
-                "min-h-[100vh] flex gap-x-14",
+                "relative min-h-[100vh] flex",
                 className
             )}
             {...props}
         >
             <Aside session={session} />
-            <div>
+            <div className={"w-full"}>
                 <Header />
-                <main>
+                <main className={"px-14 mt-4"}>
                     { children }
                 </main>
             </div>
