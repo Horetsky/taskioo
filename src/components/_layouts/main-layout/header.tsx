@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { type ComponentProps } from "react";
-import { WorkAreas } from "./areas";
 import { Button } from "@/components/ui/button";
+import { Workspaces } from "./workspaces";
 
 export const Header = ({ children, className, ...props }: ComponentProps<"header">) => {
     return (
@@ -13,10 +13,10 @@ export const Header = ({ children, className, ...props }: ComponentProps<"header
             {...props}
         >
 
-            <WorkAreas />
+            <Workspaces />
 
             <div>
-                <Button variant={"dark"} className={"font-normal rounded-lg"}>
+                <Button className={"font-normal rounded-lg"}>
                     New Area
                 </Button>
             </div>

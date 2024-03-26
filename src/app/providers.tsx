@@ -5,7 +5,7 @@ import { type PropsWithChildren } from "react";
 import { SessionProvider } from "next-auth/react";
 
 type ProvidersProps = {
-    session: Session | null
+    session: Session
 }
 
 export function Providers({ children, session }: PropsWithChildren<ProvidersProps>) {

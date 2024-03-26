@@ -44,7 +44,7 @@ export function useSignupForm(): UseFormHookReturn<SignupFormValues> {
 
     const form = useForm({
         defaultValues,
-        mode: "onBlur",
+        mode: "onSubmit",
         resolver: zodResolver(signupFormSchema),
     });
 

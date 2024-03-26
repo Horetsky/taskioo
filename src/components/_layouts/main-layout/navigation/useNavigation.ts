@@ -11,7 +11,7 @@ import {
 } from "react-icons/ai";
 import { RiGroupFill, RiGroupLine } from "react-icons/ri";
 
-export function useActivePage() {
+export function useNavigation() {
     const pathname = usePathname();
 
     return useCallback((url: string) => {

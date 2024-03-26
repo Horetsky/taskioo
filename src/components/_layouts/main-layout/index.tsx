@@ -1,14 +1,15 @@
 import { cn } from "@/lib/utils";
 import type { ComponentProps } from "react";
-
-import { Aside } from "./modules/aside";
-import { Header } from "./modules/header";
 import { type Session } from "next-auth";
+
+import { Aside } from "./aside";
+import { Header } from "./header";
 
 type MainLayoutProps =
     ComponentProps<"div"> & {
     session: Session;
 }
+
 const MainLayout = ({ children, className, session, ...props }: MainLayoutProps) => {
     return (
         <main

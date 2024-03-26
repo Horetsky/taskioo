@@ -16,7 +16,7 @@ export function useLoginForm(): UseFormHookReturn<LoginFormValues> {
     const form = useForm({
         resolver: zodResolver(loginFormSchema),
         defaultValues,
-        mode: "onBlur"
+        mode: "onSubmit"
     });
 
     const handleSubmit = form.handleSubmit(handleLogin);

@@ -5,6 +5,7 @@ import { Providers } from "@/app/providers";
 import "./globals.css";
 import { getSession } from "@/server/auth";
 import { Toaster } from "@/components/toaster";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
     title: "Create Next App",

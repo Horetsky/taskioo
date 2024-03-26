@@ -17,7 +17,8 @@ const spinnerVariants = cva(
                 secondary: "",
                 ghost: "",
                 link: "",
-                dark: "border-t-white"
+                dark: "border-t-white",
+                dashed: ""
             }
         },
         defaultVariants: {
@@ -34,5 +35,6 @@ type Props =
 export const Spinner = ({ size, className, variant, ...props }: Props) => {
     return <span
         className={cn(spinnerVariants({ size, variant, className }))}
+        {...props}
     />;
 };

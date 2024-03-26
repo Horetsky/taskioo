@@ -2,7 +2,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { type ComponentProps } from "react";
 import { type Session } from "next-auth";
-import { useActivePage, navigationItems, type NavigationItem } from "../hooks/useActivePage";
+import { useNavigation, navigationItems, type NavigationItem } from "./useNavigation";
 
 type NavigationProps =
     ComponentProps<"nav"> & {
@@ -11,7 +11,7 @@ type NavigationProps =
 
 export const Navigation = ({}: NavigationProps) => {
 
-    const isActivePage = useActivePage();
+    const isActivePage = useNavigation();
 
     return (
         <nav>
@@ -39,7 +39,7 @@ const NavigationItem = ({ href, label, isActive, Icon, IconActive}: NavigationIt
             <Link
                 href={href}
                 className={cn(
-                    "relative z-10 font-poppins text-base text-black rounded-lg",
+                    "relative z-10 font-poppins text-base rounded-lg",
                     "flex items-center gap-x-2 duration-100",
                     "px-4 py-2",
                     !isActive && "hover:bg-accent/20"
@@ -62,7 +62,7 @@ const NavigationItem = ({ href, label, isActive, Icon, IconActive}: NavigationIt
 
             <div
                 className={cn(
-                    "absolute z-0 top-0 bottom-0 right-0 left-0 bg-accent rounded-lg",
+                    "absolute z-0 top-0 bottom-0 right-0 left-0 bg-primary rounded-lg",
                     isActive ? "opacity-100" : "opacity-0"
                 )}
             />

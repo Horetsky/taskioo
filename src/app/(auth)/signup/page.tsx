@@ -5,7 +5,7 @@ export default function AuthForm() {
     return (
         <div className={"relative self-center flex flex-col gap-y-8"}>
             <div>
-                <h1 className={"text-5xl font-bold"}>
+                <h1 className={"text-foreground text-5xl font-bold"}>
                     Hey there 👋
                 </h1>
                 <p className={"text-muted-foreground"}>

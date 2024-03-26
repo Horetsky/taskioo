@@ -6,10 +6,10 @@ const areas = [
     {label: "Study", isActive: false}
 ];
 
-export const WorkAreas = () => {
+export const Workspaces = () => {
     return (
         <ul
-            className={"flex items-center gap-x-4"}
+            className={"flex items-center gap-x-6"}
         >
             {
                 areas.map(({ label, isActive }) => (
@@ -17,9 +17,9 @@ export const WorkAreas = () => {
                         key={label}
                         className={cn(
                             "relative cursor-pointer ease-in-out duration-300",
-                            isActive ? "before:scale-x-100" : "before:scale-x-0 hover:before:scale-x-75",
+                            isActive ? "before:scale-x-100" : "before:scale-x-0 hover:before:scale-x-75 opacity-60",
                             "before:absolute before:-bottom-1 before:left-0 before:w-full before:h-0.5",
-                            "before:bg-accent before:rounded-md",
+                            "before:bg-primary before:rounded-md",
                             "before:origin-bottom-left before:ease-in-out before:duration-300"
                         )}
                     >
@@ -28,13 +28,5 @@ export const WorkAreas = () => {
                 ))
             }
         </ul>
-    );
-};
-
-const AreaItem = () => {
-    return (
-        <li>
-            
-        </li>
     );
 };

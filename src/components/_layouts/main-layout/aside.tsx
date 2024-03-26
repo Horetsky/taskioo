@@ -4,11 +4,9 @@ import { cn } from "@/lib/utils";
 import { type ComponentProps, useState } from "react";
 import { type Session } from "next-auth";
 import Image from "next/image";
+
 import { Navigation } from "./navigation";
-import { AiOutlinePlus, AiOutlineVerticalRight } from "react-icons/ai";
-import { Button } from "@/components/ui/button";
-import { LuPlus } from "react-icons/lu";
-import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
+import { Collections } from "./collections";
 
 type AsideProps =
     ComponentProps<"aside"> & {
@@ -30,18 +28,20 @@ export const Aside = ({ children, className, session, ...props }: AsideProps) =>
         <>
             <aside
                 className={cn(
-                    "bg-paper overflow-hidden shrink-0 transition-all duration-300",
+                    "bg-card overflow-hidden shrink-0 transition-all duration-300",
                     open ? "basis-72" : "basis-20",
                     className
                 )}
                 {...props}
             >
-                <div className={"md:px-4 md:py-7 h-full"}>
+                <div className={"md:px-6 md:py-7 h-full"}>
                     <div className={"flex flex-col gap-y-11 h-full"}>
 
-                        <Profile session={session} className={"group"}/>
-
+                        <Profile session={session}/>
+                        
                         <Navigation session={session}/>
+
+                        <Collections />
 
                         <div className={"mt-auto"}>
                             action button
@@ -53,11 +53,11 @@ export const Aside = ({ children, className, session, ...props }: AsideProps) =>
     );
 };
 
-const Profile = ({session, className}: Block) => {
+const Profile = ({ className, session }: Block) => {
     return (
         <div
             className={cn(
-                "grid grid-cols-[45px_1fr] grid-rows-[45px] items-center gap-x-2",
+                "grid grid-cols-[44px_1fr] grid-rows-[44px] items-center gap-x-2",
                 className
             )}
         >
@@ -71,7 +71,7 @@ const Profile = ({session, className}: Block) => {
             </div>
             <div>
                 <div className={"font-medium leading-none mb-0"}>
-                    { session.user.name } { session.user.surname }
+                    {session.user.name} {session.user.surname}
                 </div>
                 <div
                     className={cn(
@@ -79,7 +79,7 @@ const Profile = ({session, className}: Block) => {
                         "cursor-pointer hover:text-primary duration-100"
                     )}
                 >
-                    { session.user.email }
+                    {session.user.email}
                 </div>
             </div>
         </div>

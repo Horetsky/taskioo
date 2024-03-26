@@ -1,4 +1,4 @@
-import { getServerSession, type NextAuthOptions } from "next-auth";
+import { getServerSession, type NextAuthOptions, type Session } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import db from "@/server/db";
@@ -79,4 +79,4 @@ export const authOptions: NextAuthOptions = {
     }
 };
 
-export const getSession = () => getServerSession(authOptions);
+export const getSession = () => getServerSession(authOptions) as Promise<Session>;
