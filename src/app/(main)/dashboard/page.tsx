@@ -1,7 +1,7 @@
 import { Hero } from "@/app/(main)/dashboard/_components/hero";
 import { Today } from "@/app/(main)/dashboard/_components/today";
 
-const Page = async () => {
+export default function Page() {
     return (
         <>
             <Hero />
@@ -9,5 +9,3 @@ const Page = async () => {
         </>
     );
 };
-
-export default Page;

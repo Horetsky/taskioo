@@ -12,6 +12,9 @@
 
     --primary: 72.93 81.69% 72.16%;
 
+    --yellow-accent: 44.68 96.91% 61.96%;
+    --blue-accent: 219.17 47.37% 29.8%;
+
     --muted: 60 4.8% 95.9%;
     --muted-foreground: 249.23 5.63% 45.29%;
 
@@ -32,6 +35,9 @@
 
     --primary: hsl(72.93 81.69% 72.16%);
 
+    --yellow-accent: hsl(44.68, 96.91%, 61.96%);
+    --blue-accent: hsl(219.17, 47.37%, 29.8%);
+
     --muted: hsl(60 4.8% 95.9%);
     --muted-foreground: hsl(249.23 5.63% 45.29%);
 
@@ -44,8 +50,12 @@
   }
 }
 
+body {
+  color: var(--foreground);
+}
+
 @layer base {
   * {
-    @apply border-border text-foreground font-poppins font-normal;
+    @apply border-border font-poppins font-normal;
   }
 }

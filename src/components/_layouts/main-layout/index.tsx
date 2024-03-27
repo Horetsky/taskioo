@@ -14,15 +14,15 @@ const MainLayout = ({ children, className, session, ...props }: MainLayoutProps)
     return (
         <main
             className={cn(
-                "relative min-h-[100vh] flex",
+                "relative h-[100vh] flex overflow-hidden",
                 className
             )}
             {...props}
         >
             <Aside session={session} />
-            <div className={"w-full"}>
-                <Header />
-                <main className={"px-14 mt-4"}>
+            <div className={"w-full relative overflow-y-scroll"}>
+                <Header className={"sticky z-10 top-0 left-0 right-0 bg-background"} />
+                <main className={"relative z-0 px-14 mt-4"}>
                     { children }
                 </main>
             </div>

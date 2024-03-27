@@ -9,9 +9,9 @@ export default async function Page() {
         <>
             <div className={"text-background"}>
                 <h1 className={"text-5xl font-black"}>
-                    Complete Profile 🚀
+                    Complete Profile ✏️
                 </h1>
-                <p className={"text-background"}>
+                <p className={""}>
                     Enter your personal information to complete profile.
                 </p>
             </div>

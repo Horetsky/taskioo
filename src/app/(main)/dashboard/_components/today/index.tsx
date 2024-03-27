@@ -1,5 +1,6 @@
 import { LuPlus } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
+import { TaskList } from "@/components/task-list";
 
 export const Today = () => {
     return (
@@ -15,6 +16,25 @@ export const Today = () => {
                     </div>
                     New Task
                 </Button>
+
+                <TaskList
+                    title={"🗒️ Today"}
+                    count={4}
+                    tasks={[0, 1, 2, 3]}
+                />
+
+                <TaskList
+                    title={"ℹ️ Note"}
+                    count={6}
+                    tasks={[0, 1, 2, 3]}
+                />
+
+                <TaskList
+                    title={"✅ Upcoming"}
+                    count={1}
+                    tasks={[0, 1, 2, 3]}
+                />
+
             </div>
         </section>
     );

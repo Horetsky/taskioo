@@ -58,7 +58,6 @@ export const CompleteProfileForm = ({ session }: Props) => {
                         loading={loading}
                         type={"submit"}
                         size={"lg"}
-                        variant={"dark"}
                     >
                         Save
                     </Button>

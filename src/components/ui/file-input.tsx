@@ -13,7 +13,7 @@ const fileInputVariant = cva(
     "group relative rounded-md overflow-hidden duration-200", {
         variants: {
             variant: {
-                default: "border border-dashed border-border bg-background hover:border-primary",
+                default: "border border-dashed border-border bg-background hover:border-foreground",
                 round: "rounded-full border border-dashed border-border bg-background"
             },
             invalid: {
@@ -88,7 +88,9 @@ const Pending = () => {
                 onChange={handleFileUpload}
             />
             <Content>
-                <MdCopyAll className={"text-4xl shrink-0"}/>
+                <div className={"bg-primary p-2 rounded-lg"}>
+                    <MdCopyAll className={"text-4xl shrink-0"}/>
+                </div>
                 <span className={"text-sm"}>
                     Drag Files to Upload or Click Here
                 </span>
