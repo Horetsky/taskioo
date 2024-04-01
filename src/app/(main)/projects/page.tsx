@@ -1,3 +1,4 @@
+import { AddNewItemButton } from "@/components/buttons";
 import { PageTitle } from "@/components/_layouts";
 
 export default function Page() {
@@ -5,12 +6,17 @@ export default function Page() {
         <>
             <PageTitle>
                 <PageTitle.Subtitle>
-                    Notification
+                    Projects
                 </PageTitle.Subtitle>
                 <PageTitle.Title>
-                    You&apos;ve got <br/> 13 notifications 🔔
+                    Personal projects 🗒️
                 </PageTitle.Title>
             </PageTitle>
+            <div className={"flex flex-col"}>
+                <AddNewItemButton>
+                    New Project
+                </AddNewItemButton>
+            </div>
         </>
     );
 }

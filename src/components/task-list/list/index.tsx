@@ -1,6 +1,6 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { AiOutlineHolder } from "react-icons/ai";
-import { Task } from "@/components/task";
+import { Task } from "@/components/task-list/task";
 import { type ReactNode } from "react";
 
 type TaskListProps = {

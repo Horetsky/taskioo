@@ -6,7 +6,7 @@ import { type Session } from "next-auth";
 import Image from "next/image";
 
 import { Navigation } from "./navigation";
-import { Collections } from "./collections";
+import { Projects } from "./projects";
 
 type AsideProps =
     ComponentProps<"aside"> & {
@@ -41,7 +41,7 @@ export const Aside = ({ children, className, session, ...props }: AsideProps) =>
                         
                         <Navigation session={session}/>
 
-                        <Collections />
+                        <Projects />
 
                         <div className={"mt-auto"}>
                             action button

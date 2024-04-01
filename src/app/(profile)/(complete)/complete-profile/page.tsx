@@ -7,7 +7,7 @@ export default async function Page() {
 
     return (
         <>
-            <div className={"text-background"}>
+            <div className={"text-foreground"}>
                 <h1 className={"text-5xl font-black"}>
                     Complete Profile ✏️
                 </h1>
