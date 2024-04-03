@@ -15,7 +15,6 @@ export const SignupForm = () => {
         loading,
         handleSubmit,
         error,
-        message
     } = useSignupForm();
 
     return (
@@ -26,7 +25,6 @@ export const SignupForm = () => {
             >
                 <FormAlert
                     error={error}
-                    message={message}
                 />
                 <FormInput
                     name={"email"}

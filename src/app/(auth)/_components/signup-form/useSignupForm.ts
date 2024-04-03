@@ -2,17 +2,12 @@ import { type UseFormHookReturn } from "@/types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "@/lib/action/hooks";
-import { createUser } from "@/server/actions/auth";
-import { useRouter } from "next/navigation";
 import { signupFormSchema, type SignupFormValues } from "./validation";
-import { useToaster } from "@/components/toaster";
-import { loginFormSchema } from "@/app/(auth)/_components/login-form/validation";
 import { useLogin } from "@/app/(auth)/_components/login-form/useLogin";
+import { createUser } from "@/server/actions/auth";
 
 export function useSignupForm(): UseFormHookReturn<SignupFormValues> {
 
-    const router = useRouter();
-    const toast = useToaster();
     const { handleLogin, loading: loginLoading } = useLogin();
 
     const {
@@ -20,21 +15,10 @@ export function useSignupForm(): UseFormHookReturn<SignupFormValues> {
         loading,
         error,
     } = useAction(createUser, {
-        async onSuccess(response) {
-            await safeLogin(response.data);
+        async onSuccess(_, input) {
+            await handleLogin(input);
         }
     });
-
-    const safeLogin = async (data: unknown) => {
-        const validatedFields = loginFormSchema.safeParse(data);
-
-        if(validatedFields.success) {
-            await handleLogin(validatedFields.data);
-        } else {
-            toast.success({ title: "Log in to your account.", description: "Your account has been created successfully."});
-            router.replace("/login");
-        }
-    };
 
     const defaultValues: SignupFormValues = {
         email: "",
@@ -54,6 +38,6 @@ export function useSignupForm(): UseFormHookReturn<SignupFormValues> {
         form,
         handleSubmit,
         loading: loading || loginLoading,
-        error
+        error: error?.message
     };
 }

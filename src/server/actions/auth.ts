@@ -3,13 +3,13 @@
 import bcrypt from "bcryptjs";
 import db from "@/server/db";
 import { procedure } from "@/server/procedure";
-import { action, Response } from "@/lib/action";
+import { action } from "@/lib/action";
 import { signupFormSchema } from "@/app/(auth)/_components/signup-form/validation";
 import { z } from "zod";
 
-export const createUser = action(signupFormSchema, async (data) => {
+export const createUser = action(signupFormSchema, async (input) => {
 
-    const { password, email} = data;
+    const { password, email} = input;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -44,6 +44,4 @@ export const createUser = action(signupFormSchema, async (data) => {
     });
 
     await procedure(createAreaQuery).returns();
-
-    return Response.json(data);
 });

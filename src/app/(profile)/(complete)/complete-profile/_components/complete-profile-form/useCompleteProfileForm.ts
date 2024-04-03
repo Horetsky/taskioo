@@ -1,13 +1,12 @@
 import { useForm } from "react-hook-form";
 import { type UseFormHookReturn } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import { completeProfileFormSchema,  type CompleteProfileFormValue } from "./validation";
 import { useAction } from "@/lib/action/hooks";
-import { completeProfile } from "@/server/actions/profile";
 import { useToaster } from "@/components/toaster";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { completeProfile } from "@/server/actions/profile";
 
 export function useCompleteProfileForm(): UseFormHookReturn<CompleteProfileFormValue> {
 
@@ -19,8 +18,8 @@ export function useCompleteProfileForm(): UseFormHookReturn<CompleteProfileFormV
         execute,
         loading
     } = useAction(completeProfile, {
-        onError(res) {
-            toast.error(res.message);
+        onError(e) {
+            toast.error(e.message);
         },
         async onSuccess() {
             await updateSession();

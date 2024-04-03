@@ -1,6 +1,6 @@
 "use server";
 
-import { action, Response } from "@/lib/action";
+import { action } from "@/lib/action";
 import {
     completeProfileFormSchema
 } from "@/app/(profile)/(complete)/complete-profile/_components/complete-profile-form/validation";
@@ -13,13 +13,13 @@ export const completeProfile = action(completeProfileFormSchema, async (data) =>
     const session = await getSession();
 
     if(!session || !session.user) {
-        return Response.error("Session has expired. Try to log in again");
+        throw new Error("Session has expired. Try to log in again");
     }
 
     const dbProfile = await db.profile.getByUsername(data.username);
 
     if(dbProfile) {
-        return Response.error("The provided username is already in use.");
+        throw new Error("The provided username is already in use.");
     }
 
     const completeProfileQuery = db.profile.create({
@@ -30,6 +30,4 @@ export const completeProfile = action(completeProfileFormSchema, async (data) =>
     });
 
     await procedure(completeProfileQuery).returns();
-
-    return Response.success();
 });

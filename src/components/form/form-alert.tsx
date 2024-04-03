@@ -16,7 +16,7 @@ export const FormAlert = ({ error, message }: Props) => {
 const ErrorAlert = ({ error }: { error: string }) => {
     return (
         <Alert variant={"destructive"} className={"flex items-center  gap-x-2"}>
-            <PiWarningCircle className={"text-2xl"} />
+            <PiWarningCircle className={"text-2xl shrink-0"} />
             <AlertTitle className={"mb-0"}>
                 { error }
             </AlertTitle>
@@ -27,7 +27,7 @@ const ErrorAlert = ({ error }: { error: string }) => {
 const MessageAlert = ({ message }: { message: string }) => {
     return (
         <Alert variant={"success"} className={"flex items-center gap-x-2"}>
-            <IoCheckmarkOutline className={"text-2xl"} />
+            <IoCheckmarkOutline className={"text-2xl shrink-0"} />
             <AlertTitle className={"mb-0"}>
                 { message }
             </AlertTitle>

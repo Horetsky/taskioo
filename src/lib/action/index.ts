@@ -1,30 +1,36 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { type ZodSchema } from "zod";
 
-import { ZodError, type ZodSchema } from "zod";
-
-import {
-    Response as ActionResponse,
-    type Callback,
-    type ActionReturn
+import type {
+    ActionCallback,
+    ActionReturn,
+    ActionReturnWithoutInput
 } from "./types";
+
 import { createActionContext } from "@/lib/action/context";
 
-const Response = new ActionResponse();
-
-function action<Input>(schema: ZodSchema<Input>, callback: Callback<Input>): ActionReturn<Input> {
-
-    return async (data: Input) => {
-        try {
+function action<Input, Output>(
+    schema: ZodSchema<Input>,
+    callback: ActionCallback<Input, Output>
+): ActionReturn<Input, Output>
+function action<Input, Output>(
+    schema: null,
+    callback: ActionCallback<null, Output>
+): ActionReturnWithoutInput<Output>
+function action<Input, Output>(
+    schema: ZodSchema<Input> | null,
+    callback: ActionCallback<Input | null, Output>
+) {
+    if(schema) {
+        return async (data: Input) => {
             const validatedFields = schema.parse(data);
             const ctx = await createActionContext();
             return await callback(validatedFields, ctx);
-        } catch (e: any) {
-            if(e instanceof ZodError) {
-                return Response.error("Invalid fields!");
-            }
-            return Response.error(e.message);
-        }
+        };
+    }
+    return async () => {
+        const ctx = await createActionContext();
+        return await callback(null, ctx);
     };
 }
 
-export { action, Response };
+export { action };

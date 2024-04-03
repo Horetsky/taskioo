@@ -1,46 +1,40 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { type Session } from "next-auth";
 
-export type SuccessResponse = {
-    type: "success";
-    data?: unknown;
-    message?: string;
-}
-export type ErrorResponse = {
-    type: "error";
-    message: string;
-}
+export type ActionReturn<Input, Output> = (data: Input) => Promise<Output>
+export type ActionReturnWithoutInput<Output> = () => Promise<Output>
 
-export class Response {
-    success(message?: string): SuccessResponse {
-        return { type: "success", message };
-    }
-    error(message: string): ErrorResponse {
-        return { type: "error", message };
-    }
-    json(data: unknown): SuccessResponse {
-        return { type: "success", data };
-    }
-}
+export type ActionCallback<Input, Output> = (input: Input, ctx: ActionContext) => Promise<Output>;
 
 export type ActionContext = {
     session: Session | null;
     headers: Readonly<Headers>;
 }
 
-export type ActionReturn<Input> = (data: Input) => Promise<ActionResponse>
-export type ActionResponse = SuccessResponse | ErrorResponse;
-export type Callback<Input> = (data: Input, ctx: ActionContext) => Promise<ActionResponse>;
-export type UseActionCallbacks = {
-    onExecute?: () => void;
-    onSuccess?: (response: SuccessResponse) => void;
-    onError?: (response: ErrorResponse) => void;
-    onSettled?: (response: ActionResponse) => void;
-};
-export type UseActionReturn<Input> = {
+export type ActionError = {
+    message?: string;
+}
+
+export type UseActionCallbacks<Input, Output, Error = ActionError> = Partial<{
+    onExecute: (
+        input: Input
+    ) => void;
+    onSuccess: (
+        data: Output,
+        input: Input
+    ) => void;
+    onError: (
+        error: Error,
+        input: Input
+    ) => void;
+    onSettled: (
+        data?: Output | null,
+        input?: Input | null,
+        error?: Error | null
+    ) => void;
+}>
+export type UseActionReturn<Input, Output> = {
     execute: (data: Input) => Promise<void>;
-    result: SuccessResponse | null;
+    result: Output | null;
     loading: boolean;
-    error: string | null
+    error: ActionError | null
 };
