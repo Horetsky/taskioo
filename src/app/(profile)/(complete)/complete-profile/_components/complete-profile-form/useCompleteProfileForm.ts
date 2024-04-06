@@ -6,7 +6,7 @@ import { useAction } from "@/lib/action/hooks";
 import { useToaster } from "@/components/toaster";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { completeProfile } from "@/server/actions/profile";
+import { completeProfile } from "@/server/api/actions/profile";
 
 export function useCompleteProfileForm(): UseFormHookReturn<CompleteProfileFormValue> {
 

@@ -1,7 +1,7 @@
 import { getServerSession, type NextAuthOptions, type Session } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import db from "@/server/db";
+import { getUserByEmail, getUserProfile } from "@/server/api/utils";
 
 export const authOptions: NextAuthOptions = {
     session: {
@@ -24,7 +24,7 @@ export const authOptions: NextAuthOptions = {
 
                 const { email, password } = credentials;
 
-                const dbUser = await db.user.getByEmail(email);
+                const dbUser = await getUserByEmail(email);
 
                 if(!dbUser || !dbUser.password) {
                     throw new Error("User with provided email does not exist.");
@@ -50,7 +50,7 @@ export const authOptions: NextAuthOptions = {
 
             token.userId = token.sub;
 
-            const profile = await db.profile.getByUserId(token.sub);
+            const profile = await getUserProfile(token.sub);
 
             if(!profile) return token;
 

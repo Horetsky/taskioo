@@ -1,6 +1,6 @@
 "use server";
 
-import { type ActionContext } from "@/lib/action/types";
+import { type ActionContext } from "./types";
 import { getSession } from "@/server/auth";
 import { headers as nextHeaders } from "next/headers";
 

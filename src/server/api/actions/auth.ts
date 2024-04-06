@@ -6,14 +6,15 @@ import { procedure } from "@/server/procedure";
 import { action } from "@/lib/action";
 import { signupFormSchema } from "@/app/(auth)/_components/signup-form/validation";
 import { z } from "zod";
+import { getUserByEmail } from "@/server/api/utils";
 
-export const createUser = action(signupFormSchema, async (input) => {
+export const createUser = action(signupFormSchema, async ({ input }) => {
 
     const { password, email} = input;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const existingUser = await db.user.getByEmail(email);
+    const existingUser = await getUserByEmail(email);
     if(existingUser) {
         throw new Error("User with provided email already exist.");
     }

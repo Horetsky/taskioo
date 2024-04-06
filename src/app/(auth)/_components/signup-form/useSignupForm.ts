@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "@/lib/action/hooks";
 import { signupFormSchema, type SignupFormValues } from "./validation";
 import { useLogin } from "@/app/(auth)/_components/login-form/useLogin";
-import { createUser } from "@/server/actions/auth";
+import { createUser } from "@/server/api/actions/auth";
 
 export function useSignupForm(): UseFormHookReturn<SignupFormValues> {
 
