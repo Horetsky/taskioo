@@ -1,8 +1,8 @@
 import { type ErrorResponse } from "../response";
 import type { Session } from "next-auth";
 
-export type ActionWithInput<Input, Output> = (input: Input) => Promise<Output>;
-export type ActionWithoutInput<Output> = () => Promise<Output>;
+export type ActionWithInput<Input, Output> = (input: Input) => Promise<Output | undefined>;
+export type ActionWithoutInput<Output> = () => Promise<Output | undefined>;
 
 export type CallbackWithInput<Input, Output> = (args: CallbackArgs<Input>) => Promise<Output>;
 export type CallbackWithoutInput<Output> = (args: CallbackArgs<null>) => Promise<Output>;
@@ -21,14 +21,14 @@ export type UseActionReturn<Input, Output> = {
     execute: (data: Input) => Promise<void>;
     result: Output | null;
     loading: boolean;
-    error: ErrorResponse | null
+    error: ErrorResponse | null | undefined
 };
 export type UseActionCallbacks<Input, Output, Error = ErrorResponse> = Partial<{
     onExecute: (
         input: Input
     ) => void;
     onSuccess: (
-        data: Output,
+        data: Output | undefined,
         input: Input
     ) => void;
     onError: (

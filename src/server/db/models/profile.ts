@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { Adapter } from "@/server/db/adapter";
+import { Query } from "@/server/db/query";
 
 export namespace ProfileModel {
-    export const profileSchema = z.object({
+    export const schema = z.object({
         id: z.string(),
         name: z.string(),
         surname: z.string(),
@@ -11,11 +11,11 @@ export namespace ProfileModel {
         user_id: z.string()
     });
 
-    export type ProfileSchemaValue = z.infer<typeof profileSchema>;
+    export type SchemaValue = z.infer<typeof schema>;
 
-    export class Profile extends Adapter<ProfileSchemaValue> {
+    export class Profile extends Query<SchemaValue> {
         constructor() {
-            super("profile", profileSchema);
+            super("profile", schema);
         }
     }
 }

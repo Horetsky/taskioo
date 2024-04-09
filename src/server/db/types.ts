@@ -1,50 +1,100 @@
-type Order = "DESC" | "ASC";
-
-export type Options<T> = Partial<{
-    where: Partial<T>;
-    data: NoId<T>;
-    returns?: {
-        [K in keyof T]?: boolean
-    };
-    select: {
-        [K in keyof T]?: boolean;
-    }
-    include: {
-        [key: string]: string;
-    };
-    order: {
-        [K in keyof T]: Order
-    };
-    limit: number;
-}>
-
-export type SelectOptions<T> = Partial<{
-    where: Partial<T>;
-    select: {
-        [K in keyof T]?: boolean;
-    }
-    include: {
-        [key: string]: string;
-    };
-    order: {
-        [K in keyof T]: Order
-    };
-    limit: number;
-}>;
-
-
-export type CreateOptions<T> = {
-    data: NoId<T>;
-    returns?: {
-        [K in keyof T]?: boolean
-    };
-}
+import { type ZodSchema } from "zod";
 
 export type NoId<T> = T extends { id: string } ? Omit<T, "id"> : T
+type Order = "DESC" | "ASC";
+export type Methods = "findMany" | "findUnique" | "create" | "delete";
 
-export type Methods<T> = {
-    select: (options: SelectOptions<T>) => unknown;
-    create: (options: CreateOptions<T>) => unknown;
-    update: (options: Options<T>) => unknown;
-    delete: (options: Options<T>) => unknown;
+export type Options<T> = {
+    where?: Partial<T>;
+    data?: NoId<T>;
+    select?: {
+        [K in keyof T]?: boolean;
+    }
+    returns?: {
+        [K in keyof T]?: boolean
+    } | "*";
+    include?: {
+        [key: string]: string;
+    };
+    order?: {
+        [K in keyof T]: Order
+    };
+    limit?: number;
+}
+
+export namespace FindMany {
+    export type Options<T> = {
+        where?: Partial<T>;
+        select?: {
+            [K in keyof T]?: boolean;
+        }
+        include?: {
+            [key: string]: string;
+        };
+        order?: {
+            [K in keyof T]: Order
+        };
+        limit?: number;
+    }
+
+    export type Args<T, Output> = [
+        options: Options<T>,
+        returns?: ZodSchema<Output>
+    ]
+}
+
+export namespace FindUnique {
+    export type Options<T> = {
+        where: Partial<T>;
+        select?: {
+            [K in keyof T]?: boolean;
+        }
+        include?: {
+            [key: string]: string;
+        };
+        order?: {
+            [K in keyof T]: Order
+        };
+        limit?: number;
+    }
+    export type Args<T, Output> = [
+        options: Options<T>,
+        returns?: ZodSchema<Output>
+    ]
+}
+
+export namespace Create {
+    export type Options<T> = {
+        data: NoId<T>,
+        returns?: {
+            [K in keyof T]?: boolean
+        } | "*";
+    }
+    export type Args<T, Output> = [
+        options: Options<T>,
+        returns?: ZodSchema<Output>
+    ]
+}
+
+export namespace Delete {
+    export type Options<T> = {
+        where?: Partial<T>;
+        returns?: {
+            [K in keyof T]?: boolean
+        } | "*";
+    }
+    export type Args<T, Output> = [
+        options: Options<T>,
+        returns?: ZodSchema<Output>
+    ]
+}
+
+export namespace QueryFunction {
+    export type Type<T> = (...args: Args<T>) => string;
+    export type Args<T> = [
+        options: Options<T>, 
+        table: string, 
+        prevQuery: string
+    ];
+
 }

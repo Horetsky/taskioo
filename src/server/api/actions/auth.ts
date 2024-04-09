@@ -2,11 +2,10 @@
 
 import bcrypt from "bcryptjs";
 import db from "@/server/db";
-import { procedure } from "@/server/procedure";
 import { action } from "@/lib/action";
 import { signupFormSchema } from "@/app/(auth)/_components/signup-form/validation";
-import { z } from "zod";
 import { getUserByEmail } from "@/server/api/utils";
+import { UserModel } from "@/server/db/models/user";
 
 export const createUser = action(signupFormSchema, async ({ input }) => {
 
@@ -19,30 +18,18 @@ export const createUser = action(signupFormSchema, async ({ input }) => {
         throw new Error("User with provided email already exist.");
     }
 
-    const createUserQuery = db.user.create({
+    const newUser =  await db.user.create({
         data: {
             email,
             password: hashedPassword
         },
-        returns: {
-            id: true,
-            email: true,
-        }
-    });
+        returns: "*"
+    }, UserModel.schema);
 
-    const newUser = await procedure(createUserQuery).returns(
-        z.object({
-            id: z.string(),
-            email: z.string()
-        })
-    );
-
-    const createAreaQuery = db.area.create({
+    await db.area.create({
         data: {
             title: "New area",
             user_id: newUser.id
         }
     });
-
-    await procedure(createAreaQuery).returns();
 });

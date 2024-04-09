@@ -1,21 +1,19 @@
-import { type Options } from "../types";
-
-type QueryFunc<T> = (object: Options<T>, table: string, query: string) => string;
+import { type Options, type QueryFunction } from "@/server/db/types";
 function createQueryStack<T>(
-    queries: QueryFunc<T>[],
+    templates: QueryFunction.Type<T>[],
     options: Options<T>,
     table: string,
     query?: string,
     index = 0
 ): string {
-    const currentFunction = queries[index];
+    const currentFunction = templates[index];
 
     if(currentFunction) {
         const newQuery = currentFunction(options, table, query ?? "");
-        return createQueryStack(queries, options, table, newQuery, index + 1);
+        return createQueryStack(templates, options, table, newQuery, index + 1);
     }
 
-    return query ?? "";
+    return query || "";
 }
 
 export { createQueryStack };

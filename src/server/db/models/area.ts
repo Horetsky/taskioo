@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Adapter } from "@/server/db/adapter";
+import { Query } from "@/server/db/query";
 
 export namespace AreaModel {
     export const areaSchema = z.object({
@@ -10,7 +10,7 @@ export namespace AreaModel {
 
     export type AreaSchemaValue = z.infer<typeof areaSchema>;
 
-    export class Area extends Adapter<AreaSchemaValue> {
+    export class Area extends Query<AreaSchemaValue> {
         constructor() {
             super("area", areaSchema);
         }

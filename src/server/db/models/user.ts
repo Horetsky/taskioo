@@ -1,18 +1,18 @@
 import { z } from "zod";
-import { Adapter } from "@/server/db/adapter";
+import { Query } from "@/server/db/query";
 
 export namespace UserModel {
-    export const userSchema = z.object({
+    export const schema = z.object({
         id: z.string(),
         email: z.string(),
         password: z.string().or(z.null()),
     });
 
-    export type UserSchemaValue = z.infer<typeof userSchema>
+    export type SchemaValue = z.infer<typeof schema>
 
-    export class User extends Adapter<UserSchemaValue> {
+    export class User extends Query<SchemaValue>{
         constructor() {
-            super("user", userSchema);
+            super("user", schema);
         }
     }
 }

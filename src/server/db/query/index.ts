@@ -1,28 +1,24 @@
-import { type ZodSchema } from "zod";
-import { type Options, type SelectOptions } from "../types";
+import { z, type ZodSchema } from "zod";
+import type {
+    Create,
+    Delete,
+    FindMany,
+    FindUnique
+} from "@/server/db/types";
 import {
     deleteQuery,
     includeQuery,
     insertQuery,
     limitQuery,
-    orderQuery, returnsQuery,
+    orderQuery,
+    returnsQuery,
     selectQuery,
-    updateQuery,
     whereQuery
-} from "./template";
-import { createQueryStack } from "./queryStack";
+} from "@/server/db/query/template";
+import { createQueryStack } from "@/server/db/query/queryStack";
+import { pg } from "@/lib/pool";
 
-type Method<T> = (options: Options<T>) => string;
-
-type ProcedureMethods<Input> = {
-    select: Method<Input>;
-    insert: Method<Input>;
-    update: Method<Input>;
-    delete: Method<Input>;
-}
-
-class Query<Input> implements ProcedureMethods<Input>{
-
+export class Query<Input> {
     protected input: ZodSchema<Input>;
     protected table: string;
 
@@ -31,24 +27,63 @@ class Query<Input> implements ProcedureMethods<Input>{
         this.input = input;
     }
 
-    select(options: SelectOptions<Input>) {
+    async findMany<Output = any>(...args: FindMany.Args<Input, Output>): Promise<Output[]> {
+        const [
+            options,
+            returns
+        ] = args;
+
         const queryStack = [selectQuery, includeQuery, whereQuery, orderQuery, limitQuery];
-        return createQueryStack(queryStack, options, this.table);
+        const query = createQueryStack(queryStack, options, this.table);
+
+        const { rows } = await pg(query);
+
+        if(!returns) return rows as Output[];
+        return z.array(returns).parse(rows);
     }
-    insert(options: Options<Input>) {
+
+    async findUnique<Output = any>(...args: FindUnique.Args<Input, Output>): Promise<Output | undefined> {
+        const [
+            options,
+            returns
+        ] = args;
+
+        const queryStack = [selectQuery, includeQuery, whereQuery, orderQuery, limitQuery];
+        const query = createQueryStack(queryStack, options, this.table);
+
+        const { rows } = await pg(query);
+
+        if(!returns) return rows[0] as Output;
+        return returns.optional().parse(rows[0]);
+    }
+
+    async create<Output = any>(...args: Create.Args<Input, Output>): Promise<Output> {
+        const [
+            options,
+            returns
+        ] = args;
+
         const queryStack = [insertQuery, returnsQuery];
-        return createQueryStack(queryStack, options, this.table);
+        const query = createQueryStack(queryStack, options, this.table);
+
+        const { rows } = await pg(query);
+
+        if(!returns) return rows[0] as Output;
+        return returns.parse(rows[0]);
     }
 
-    update(options: Options<Input>) {
-        const queryStack = [updateQuery, whereQuery];
-        return createQueryStack(queryStack, options, this.table);
-    }
+    async delete<Output = any>(...args: Delete.Args<Input, Output>): Promise<Output> {
+        const [
+            options,
+            returns
+        ] = args;
 
-    delete(options: Options<Input>) {
         const queryStack = [deleteQuery, whereQuery];
-        return createQueryStack(queryStack, options, this.table);
+        const query = createQueryStack(queryStack, options, this.table);
+
+        const { rows } = await pg(query);
+
+        if(!returns) return rows as Output;
+        return returns.parse(rows);
     }
 }
-
-export { Query };
