@@ -1,8 +1,15 @@
 import { cn } from "@/lib/utils";
 import { type ComponentProps } from "react";
-import { Button } from "@/components/ui/button";
 import { Workspaces } from "./workspaces";
-export const Header = ({ children, className, ...props }: ComponentProps<"header">) => {
+import { NewWorkspaceModal } from "./new-workspace-modal";
+import { type AreaModel } from "@/server/db/models/area";
+
+type HeaderProps =
+    ComponentProps<"header"> & {
+    workspaces: AreaModel.SchemaValue[]
+}
+
+export const Header = ({ children, className, workspaces, ...props }: HeaderProps) => {
     return (
         <header
             className={cn(
@@ -13,13 +20,9 @@ export const Header = ({ children, className, ...props }: ComponentProps<"header
             {...props}
         >
 
-            <Workspaces />
+            <Workspaces workspaces={workspaces} />
 
-            <div>
-                <Button className={"font-normal rounded-lg"}>
-                    New Area
-                </Button>
-            </div>
+            <NewWorkspaceModal />
         </header>
     );
 };

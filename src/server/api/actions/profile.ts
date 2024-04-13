@@ -24,10 +24,11 @@ export const completeProfile = action(completeProfileFormSchema, async ({ input,
         throw new Error("The provided username is already in use.");
     }
 
-    await db.profile.create({
+    return await db.profile.create({
         data: {
             user_id: session.user.userId,
             ...input
-        }
-    });
+        },
+        returns: "*"
+    }, ProfileModel.schema);
 });

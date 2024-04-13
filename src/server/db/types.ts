@@ -89,6 +89,19 @@ export namespace Delete {
     ]
 }
 
+export namespace Update {
+    export type Options<T> = {
+        where?: Partial<T>;
+        returns?: {
+            [K in keyof T]?: boolean
+        } | "*";
+    }
+    export type Args<T, Output> = [
+        options: Options<T>,
+        returns?: ZodSchema<Output>
+    ]
+}
+
 export namespace QueryFunction {
     export type Type<T> = (...args: Args<T>) => string;
     export type Args<T> = [

@@ -1,14 +1,14 @@
 import { type ErrorResponse } from "../response";
 import type { Session } from "next-auth";
 
-export type ActionWithInput<Input, Output> = (input: Input) => Promise<Output | undefined>;
-export type ActionWithoutInput<Output> = () => Promise<Output | undefined>;
+export type ActionWithInput<Input, Output> = (input: Input) => Promise<Output>;
+export type ActionWithoutInput<Output> = () => Promise<Output>;
 
 export type CallbackWithInput<Input, Output> = (args: CallbackArgs<Input>) => Promise<Output>;
 export type CallbackWithoutInput<Output> = (args: CallbackArgs<null>) => Promise<Output>;
 
 export type ActionContext = {
-    session: Session | null;
+    session: Session;
     headers: Readonly<Headers>;
 }
 export type CallbackArgs<Input> = {

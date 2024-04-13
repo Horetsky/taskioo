@@ -2,17 +2,17 @@ import { z } from "zod";
 import { Query } from "@/server/db/query";
 
 export namespace AreaModel {
-    export const areaSchema = z.object({
+    export const schema = z.object({
         id: z.string(),
         title: z.string(),
         user_id: z.string()
     });
 
-    export type AreaSchemaValue = z.infer<typeof areaSchema>;
+    export type SchemaValue = z.infer<typeof schema>;
 
-    export class Area extends Query<AreaSchemaValue> {
+    export class Area extends Query<SchemaValue> {
         constructor() {
-            super("area", areaSchema);
+            super("area", schema);
         }
     }
 }

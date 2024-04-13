@@ -5,6 +5,7 @@ import { type DefaultSession } from "next-auth";
 type SessionUser = {
     userId: string;
     email: string;
+    workspaceId?: string;
     username?: string;
     profileId?: string;
     name?: string | null;

@@ -21,9 +21,13 @@ export function useCompleteProfileForm(): UseFormHookReturn<CompleteProfileFormV
         onError(e) {
             toast.error(e.message);
         },
-        async onSuccess() {
-            await updateSession();
-            router.replace("/dashboard");
+        async onSuccess(data) {
+            if(data) {
+                await updateSession({
+                    profile: data
+                });
+                router.replace("/dashboard");
+            }
         }
     });
 

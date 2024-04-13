@@ -2,6 +2,7 @@ import { z, type ZodSchema } from "zod";
 import type {
     Create,
     Delete,
+    Update,
     FindMany,
     FindUnique
 } from "@/server/db/types";
@@ -12,7 +13,7 @@ import {
     limitQuery,
     orderQuery,
     returnsQuery,
-    selectQuery,
+    selectQuery, updateQuery,
     whereQuery
 } from "@/server/db/query/template";
 import { createQueryStack } from "@/server/db/query/queryStack";
@@ -57,6 +58,21 @@ export class Query<Input> {
         return returns.optional().parse(rows[0]);
     }
 
+    async findFirst<Output = any>(...args: FindUnique.Args<Input, Output>): Promise<Output | undefined> {
+        const [
+            options,
+            returns
+        ] = args;
+
+        const queryStack = [selectQuery, includeQuery, whereQuery, orderQuery, limitQuery];
+        const query = createQueryStack(queryStack, options, this.table);
+
+        const { rows } = await pg(query);
+
+        if(!returns) return rows[0] as Output;
+        return returns.optional().parse(rows[0]);
+    }
+
     async create<Output = any>(...args: Create.Args<Input, Output>): Promise<Output> {
         const [
             options,
@@ -83,7 +99,22 @@ export class Query<Input> {
 
         const { rows } = await pg(query);
 
-        if(!returns) return rows as Output;
-        return returns.parse(rows);
+        if(!returns) return rows[0] as Output;
+        return returns.parse(rows[0]);
+    }
+
+    async update<Output = any>(...args: Update.Args<Input, Output>): Promise<Output> {
+        const [
+            options,
+            returns
+        ] = args;
+
+        const queryStack = [updateQuery, whereQuery, returnsQuery];
+        const query = createQueryStack(queryStack, options, this.table);
+
+        const { rows } = await pg(query);
+
+        if(!returns) return rows[0] as Output;
+        return returns.parse(rows[0]);
     }
 }
