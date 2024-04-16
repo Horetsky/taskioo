@@ -1,5 +1,8 @@
 "use client";
 
+import { useNewProjectForm } from "@/app/(main)/projects/_components/new-project-form/useNewProjectForm";
+import { Form } from "@/components/ui/form";
+import { useState } from "react";
 import {
     Dialog,
     DialogContent,
@@ -8,14 +11,11 @@ import {
     DialogTitle,
     DialogTrigger
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { useWorkspaceForm } from "@/components/_layouts/main-layout/new-workspace-modal/useWorkspaceForm";
-import { useState } from "react";
-import { Form } from "@/components/ui/form";
+import { AddNewItemButton } from "@/components/buttons";
 import { FormInput } from "@/components/form/form-input";
+import { Button } from "@/components/ui/button";
 
-export const NewWorkspaceModal = () => {
-
+export const NewProjectModal = () => {
     const [open, setOpen] = useState(false);
 
     const handleClose = () => setOpen(false);
@@ -23,32 +23,38 @@ export const NewWorkspaceModal = () => {
 
     const {
         form,
-        handleSubmit,
-        loading
-    } = useWorkspaceForm(handleClose);
+        loading,
+        handleSubmit
+    } = useNewProjectForm(handleClose);
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <Button className={"font-normal rounded-lg"} onClick={handleOpen}>
-                New Area
-            </Button>
+            <AddNewItemButton onClick={handleOpen}>
+                New Project
+            </AddNewItemButton>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>New workspace</DialogTitle>
+                    <DialogTitle>New project</DialogTitle>
                     <DialogDescription>
-                        Create a new workspace here. Click Create when you fill out all the fields.
+                        Create a new project here. Click Create when you fill out all the fields.
                     </DialogDescription>
                 </DialogHeader>
                 <Form {...form}>
                     <form
+                        className="flex flex-col gap-y-6"
                         onSubmit={handleSubmit}
-                        className={"flex flex-col gap-y-6"}
                     >
                         <FormInput
                             name={"title"}
                             label={"Title"}
                             control={form.control}
-                            placeholder={"Workspace title"}
+                            placeholder={"Enter project title"}
+                        />
+                        <FormInput
+                            name={"subtitle"}
+                            label={"Subtitle"}
+                            control={form.control}
+                            placeholder={"Enter project subtitle"}
                         />
                         <Button
                             size={"lg"}
@@ -56,7 +62,7 @@ export const NewWorkspaceModal = () => {
                             type={"submit"}
                             loading={loading}
                         >
-                            Create workspace
+                            Create project
                         </Button>
                     </form>
                 </Form>

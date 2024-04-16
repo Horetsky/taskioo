@@ -6,6 +6,7 @@ type SessionUser = {
     userId: string;
     email: string;
     workspaceId?: string;
+    teamId?: string;
     username?: string;
     profileId?: string;
     name?: string | null;

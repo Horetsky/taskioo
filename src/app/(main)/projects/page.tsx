@@ -1,5 +1,5 @@
-import { AddNewItemButton } from "@/components/buttons";
 import { PageTitle } from "@/components/_layouts";
+import { NewProjectModal } from "@/app/(main)/projects/_components/new-project-form";
 
 export default function Page() {
     return (
@@ -12,11 +12,7 @@ export default function Page() {
                     Personal projects 🗒️
                 </PageTitle.Title>
             </PageTitle>
-            <div className={"flex flex-col"}>
-                <AddNewItemButton>
-                    New Project
-                </AddNewItemButton>
-            </div>
+            <NewProjectModal />
         </>
     );
 }
