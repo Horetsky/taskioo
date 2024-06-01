@@ -7,6 +7,9 @@ import Image from "next/image";
 
 import { Navigation } from "./navigation";
 import { Projects } from "./projects";
+import { NewTaskModal } from "@/components/_modules/tasks/new-task-form";
+import { Button } from "@/components/ui/button";
+import { LuPlus } from "react-icons/lu";
 
 type AsideProps =
     ComponentProps<"aside"> & {
@@ -21,8 +24,6 @@ type Block =
 export const Aside = ({ children, className, session, ...props }: AsideProps) => {
 
     const [open, setOpen] = useState(true);
-
-    const handleOpen = () => setOpen(state => !state);
 
     return (
         <>
@@ -43,8 +44,21 @@ export const Aside = ({ children, className, session, ...props }: AsideProps) =>
 
                         <Projects />
 
-                        <div className={"mt-auto"}>
-                            action button
+                        <div className={"mt-auto w-full"}>
+                            <NewTaskModal
+                                triger={
+                                    <Button
+                                        variant={"dashed"}
+                                        size={"lg"}
+                                        className={"gap-x-4"}
+                                    >
+                                        <div className={"bg-primary rounded-md p-0.5"}>
+                                            <LuPlus className={"text-base"} />
+                                        </div>
+                                        New Task
+                                    </Button>
+                                }
+                            />
                         </div>
                     </div>
                 </div>

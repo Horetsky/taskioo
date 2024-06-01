@@ -1,21 +1,24 @@
 "use client";
 
-import { useNewProjectForm } from "@/app/(main)/projects/_components/new-project-form/useNewProjectForm";
 import { Form } from "@/components/ui/form";
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 import {
     Dialog,
     DialogContent,
     DialogDescription,
     DialogHeader,
-    DialogTitle,
-    DialogTrigger
+    DialogTitle
 } from "@/components/ui/dialog";
 import { AddNewItemButton } from "@/components/buttons";
 import { FormInput } from "@/components/form/form-input";
 import { Button } from "@/components/ui/button";
+import { useNewProjectForm } from "./useNewProjectForm";
 
-export const NewProjectModal = () => {
+type Props = {
+    triger?: ReactNode
+}
+
+export const NewProjectModal = ({ triger }: Props) => {
     const [open, setOpen] = useState(false);
 
     const handleClose = () => setOpen(false);
@@ -29,9 +32,15 @@ export const NewProjectModal = () => {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <AddNewItemButton onClick={handleOpen}>
-                New Project
-            </AddNewItemButton>
+            {
+                triger ?
+                    <div onClick={handleOpen} className={"w-fit h-fit"}>
+                        { triger }
+                    </div> :
+                    <AddNewItemButton onClick={handleOpen}>
+                        New Project
+                    </AddNewItemButton>
+            }
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>New project</DialogTitle>

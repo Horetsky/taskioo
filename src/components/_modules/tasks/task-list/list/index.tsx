@@ -1,14 +1,9 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { AiOutlineHolder } from "react-icons/ai";
-import { Task } from "@/components/task-list/task";
-import { type ReactNode } from "react";
+import { Task } from "@/components/_modules/tasks/task-list/task";
+import { type ListModel } from "@/server/db/models/list";
 
-type TaskListProps = {
-    title: string | ReactNode
-    count: string | number | ReactNode;
-    tasks: any[]
-}
-export const TaskList = ({ title, count, tasks }: TaskListProps) => {
+export const TaskList = ({ data: { list, tasks } }: { data: ListModel.TaskListValue[number] }) => {
     return (
         <Accordion type="single" collapsible>
             <AccordionItem value="item-1">
@@ -16,17 +11,19 @@ export const TaskList = ({ title, count, tasks }: TaskListProps) => {
                     <AiOutlineHolder className={" text-2xl opacity-50"} />
                     <AccordionTrigger className={"p-0 flex items-center [&_svg]:w-6 [&_svg]:h-6"}>
                         <span className={"text-lg font-medium"}>
-                            { title }
+                            { list.title }
                         </span>
                         <div className={"bg-foreground text-background w-5 h-5 flex items-center text-xs justify-center rounded leading-none"}>
-                            { count }
+                            { tasks.length }
                         </div>
                     </AccordionTrigger>
                 </div>
                 {
                     tasks.map((item, i) => (
                         <AccordionContent key={i} className={"pl-8 mb-3"}>
-                            <Task/>
+                            <Task>
+                                { item.title }
+                            </Task>
                         </AccordionContent>
                     ))
                 }

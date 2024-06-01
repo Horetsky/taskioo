@@ -20,13 +20,11 @@ import { createQueryStack } from "@/server/db/query/queryStack";
 import { pg } from "@/lib/pool";
 
 export class Query<Input> {
-    protected input: ZodSchema<Input>;
-    protected table: string;
 
-    constructor(table: string, input: ZodSchema<Input>) {
-        this.table = table;
-        this.input = input;
-    }
+    constructor(
+        protected readonly table: string,
+        protected readonly input: ZodSchema<Input>
+    ) {}
 
     async findMany<Output = any>(...args: FindMany.Args<Input, Output>): Promise<Output[]> {
         const [

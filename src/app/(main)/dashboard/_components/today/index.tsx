@@ -1,31 +1,19 @@
-import { TaskList } from "@/components/task-list";
-import { AddNewItemButton } from "@/components/buttons";
+import { getUserTaskLists } from "@/server/api/actions/list";
+import { NewTaskModal } from "@/components/_modules/tasks/new-task-form";
+import { TaskList } from "@/components/_modules/tasks/task-list";
 
-export const Today = () => {
+export const Today = async () => {
+    const taskLists = await getUserTaskLists();
     return (
         <section>
             <div className={"flex flex-col gap-y-9"}>
-                <AddNewItemButton>
-                    New Task
-                </AddNewItemButton>
+                <NewTaskModal />
 
-                <TaskList
-                    title={"🗒️ Today"}
-                    count={4}
-                    tasks={[0, 1, 2, 3]}
-                />
-
-                <TaskList
-                    title={"ℹ️ Note"}
-                    count={6}
-                    tasks={[0, 1, 2, 3]}
-                />
-
-                <TaskList
-                    title={"✅ Upcoming"}
-                    count={1}
-                    tasks={[0, 1, 2, 3]}
-                />
+                {
+                    taskLists.map(item => (
+                        <TaskList key={item.list.id} data={item} />
+                    ))
+                }
 
             </div>
         </section>

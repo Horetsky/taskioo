@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import { type PropsWithChildren } from "react";
 import { fonts } from "@/fonts.config";
 import { Providers } from "@/app/providers";
-import "./globals.css";
 import { getSession } from "@/server/auth";
 import { Toaster } from "@/components/toaster";
-import { redirect } from "next/navigation";
+import "./globals.css";
 
 export const metadata: Metadata = {
     title: "Create Next App",

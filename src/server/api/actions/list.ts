@@ -1,9 +1,11 @@
 "use server";
 
 import { action } from "@/lib/action";
-import { newProjectFormSchema } from "@/app/(main)/projects/_components/new-project-form/validation";
 import db from "@/server/db";
 import { revalidatePath } from "next/cache";
+import { ListModel } from "@/server/db/models/list";
+import { TaskModel } from "@/server/db/models/task";
+import { newProjectFormSchema } from "@/components/_modules/project/new-project-form/validation";
 
 export const createList = action(newProjectFormSchema, async ({ input, ctx }) => {
 
@@ -31,4 +33,42 @@ export const createList = action(newProjectFormSchema, async ({ input, ctx }) =>
     });
 
     revalidatePath("/projects");
+});
+
+export const getUserLists = action(null, async ({ ctx }) => {
+    const {
+        profileId
+    } = ctx.session.user;
+
+    return await db.list.findMany({
+        where: {
+            owner_id: profileId,
+        }
+    }, ListModel.schema);
+});
+
+export const getUserTaskLists = action(null, async ({ ctx }) => {
+    const {
+        profileId
+    } = ctx.session.user;
+
+
+    const userLists = await db.list.findMany({
+        where: {
+            owner_id: profileId,
+        }
+    }, ListModel.schema);
+
+
+    const tasksPromises = userLists.map(async list => {
+        const tasks = await db.task.findMany({
+            where: {
+                list_id: list.id,
+            }
+        }, TaskModel.schema);
+
+        return { list, tasks };
+    });
+
+    return await Promise.all(tasksPromises) as ListModel.TaskListValue;
 });

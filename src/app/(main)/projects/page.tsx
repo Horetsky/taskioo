@@ -1,7 +1,12 @@
 import { PageTitle } from "@/components/_layouts";
-import { NewProjectModal } from "@/app/(main)/projects/_components/new-project-form";
+import { getUserTaskLists } from "@/server/api/actions/list";
+import { NewProjectModal } from "@/components/_modules/project/new-project-form";
+import { TaskList } from "@/components/_modules/tasks/task-list";
 
-export default function Page() {
+export default async function Page() {
+
+    const taskLists = await getUserTaskLists();
+
     return (
         <>
             <PageTitle>
@@ -12,7 +17,15 @@ export default function Page() {
                     Personal projects 🗒️
                 </PageTitle.Title>
             </PageTitle>
-            <NewProjectModal />
+
+            <div className={"flex flex-col gap-y-9"}>
+                <NewProjectModal />
+                {
+                    taskLists.map(item => (
+                        <TaskList key={item.list.id} data={item} />
+                    ))
+                }
+            </div>
         </>
     );
 }

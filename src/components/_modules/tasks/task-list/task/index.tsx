@@ -1,8 +1,9 @@
 import { AiOutlineHolder } from "react-icons/ai";
 import { HiEllipsisVertical } from "react-icons/hi2";
 import { Checkbox } from "@/components/ui/checkbox";
+import { type PropsWithChildren } from "react";
 
-export const Task = () => {
+export const Task = ({ children }: PropsWithChildren) => {
     return (
         <li className={"grid grid-cols-[14px_20px_1fr_120px_75px_20px] gap-x-4 items-center leading-none py-2.5 px-3 rounded-lg hover:bg-card duration-200"}>
             <div>
@@ -10,7 +11,7 @@ export const Task = () => {
             </div>
             <Checkbox className={"data-[state=checked]:border-foreground data-[state=checked]:bg-foreground data-[state=checked]:text-background"} />
             <div>
-                Finish the sales presentation for the client meeting at 2:00 PM
+                { children }
             </div>
             <div className={"flex items-center"}>
                 <div className={"w-8 h-8 bg-blue-accent rounded-full flex items-center justify-center text-xl"}>
